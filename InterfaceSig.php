@@ -13,8 +13,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(45deg, #172b4d, #2c3e50); /* Navy blue gradients */
-            color: #fff; /* White text */
+            background: linear-gradient(45deg, #172b4d, #2c3e50); 
+            color: #fff; 
         }
 
         .container {
@@ -28,7 +28,7 @@
         }
 
         h2 {
-            color: #FFD700; /* Moutarde jaune */
+            color: #172b4d; 
         }
 
         textarea {
@@ -38,12 +38,12 @@
             border-radius: 5px;
             border: 1px solid #ccc;
             box-sizing: border-box;
-            resize: vertical; /* permet le redimensionnement vertical de la zone de texte */
+            resize: vertical; 
         }
 
         input[type="submit"] {
-            background-color: #ffdb58; /* Mustard yellow */
-            color: #333; /* Dark gray text */
+            background-color: #ffdb58; 
+            color: #333; 
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -51,7 +51,7 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #ccab42; /* Darker mustard yellow on hover */
+            background-color: #ccab42; 
         }
     </style>
 </head>
