@@ -93,45 +93,45 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>John Doe</td>
+                    <td>Samir Fattal </td>
                     <td>123</td>
-                    <td>John encountered a vehicle breakdown halfway through the mission.</td>
+                    <td>Samir encountered a vehicle breakdown halfway through the mission.</td>
                     <td class="button-container">
                         <button class="button accept">Accept</button>
                         <button class="button decline">Decline</button>
                     </td>
                 </tr>
                 <tr>
-                    <td>Jane Smith</td>
+                    <td>Abdou Tair</td>
                     <td>456</td>
-                    <td>Jane faced adverse weather conditions which delayed the delivery.</td>
+                    <td>Abdou faced adverse weather conditions which delayed the delivery.</td>
                     <td class="button-container">
                         <button class="button accept">Accept</button>
                         <button class="button decline">Decline</button>
                     </td>
                 </tr>
                 <tr>
-                    <td>Sam Lee</td>
+                    <td>Dwane Zoubir</td>
                     <td>789</td>
-                    <td>Sam encountered road closures, resulting in a significant delay in completing the mission.</td>
+                    <td>Dwane encountered road closures, resulting in a significant delay in completing the mission.</td>
                     <td class="button-container">
                         <button class="button accept">Accept</button>
                         <button class="button decline">Decline</button>
                     </td>
                 </tr>
                 <tr>
-                    <td>Alice Johnson</td>
+                    <td>Adem Nemrouchi</td>
                     <td>246</td>
-                    <td>Alice's vehicle had a flat tire, causing a delay in reaching the destination.</td>
+                    <td>Adem's vehicle had a flat tire, causing a delay in reaching the destination.</td>
                     <td class="button-container">
                         <button class="button accept">Accept</button>
                         <button class="button decline">Decline</button>
                     </td>
                 </tr>
                 <tr>
-                    <td>Michael Brown</td>
+                    <td>Fatima Lekhal</td>
                     <td>135</td>
-                    <td>Michael's GPS malfunctioned, leading to confusion and a longer route.</td>
+                    <td>Fatima's GPS malfunctioned, leading to confusion and a longer route.</td>
                     <td class="button-container">
                         <button class="button accept">Accept</button>
                         <button class="button decline">Decline</button>
