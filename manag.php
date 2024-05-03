@@ -4,7 +4,7 @@
         background-color:#F7DC6F;
     }
     .block {
-    max-width: 500px;
+    max-width: 600px;
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
@@ -21,20 +21,14 @@
         width: 100%;
     }
 </style>
-
 <html>
-    <head>
-        <title>Acceuil SUPER Admin </title>
-    </head>
+    <head><title>Choix</title></head>
     <body>
-        <div class="block" >
+        <div class="block">
             <div style="text-align :center;">
-            <h1>What to do?</h1>
-            <a href="manag.php" class="button">Manage mission</a>
-        <!--    <br><br><br>  -->
-            <a href="CreateAcc.php" class="button">Create an account</a>
-        <!--    <br><br><br>  -->
-            <a href="report.php" class="button">View report</a>
+            <h2>Do you want to create or consult a mission?</h2>
+            <a href="CreateMission.php" class="button">Create</a>
+            <a href="consultation.php" class="button">Consult</a>
             <br><br>
         </div>
     </body>

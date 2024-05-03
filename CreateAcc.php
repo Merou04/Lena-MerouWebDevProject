@@ -1,7 +1,7 @@
 <style>
     body {
     font-family: Arial;
-    background-color:#FF972E;
+    background-color:#F7DC6F;
     }
     .block {
     max-width: 400px;
@@ -22,6 +22,7 @@
     input[type="text"],
     input[type="email"],
     input[type="date"],
+    input[type="tel"],
     input[type="password"] {
     width: 100%;
     padding: 10px;
@@ -72,6 +73,9 @@
                     <option value="2">B</option>
                     <option value="3">C</option>
                 </select>
+            <label>Tel:</label>
+            <input type="tel" name="tel" placeholder="Num tel"/>
+            <br>
             <label>Email:</label>
             <input type="email" id="email" name="email" required>
             <label>Password:</label>
