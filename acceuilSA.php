@@ -31,9 +31,9 @@
             <div style="text-align :center;">
             <h1>What to do?</h1>
             <a href="manag.php" class="button">Manage mission</a>
-        <!--    <br><br><br>  -->
-            <a href="CreateAcc.php" class="button">Add new driver</a>
-        <!--    <br><br><br>  -->
+            <br><br><br> 
+            <a href="Manage drivers.php" class="button">Manage driver</a>
+            <br><br><br>  
             <a href="report.php" class="button">View report</a>
             <br><br>
         </div>

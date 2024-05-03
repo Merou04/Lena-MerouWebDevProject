@@ -45,14 +45,15 @@
         button:hover {
             background-color: #ccab42; 
         }
-        .add-button {
-            display: block;
-            width: 200px;
-            margin: 20px auto;
-            font-size: 16px;
-            background-color: #ffdb58; 
-            color: #333; 
-        }
+        .button{
+        text-align: center;
+        background-color:#ffdb58; 
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        width: 100%;
+    }
     </style>
 </head>
 <body>
@@ -110,6 +111,6 @@
             </tr>
         </tbody>
     </table>
-    <button class="add-button">Add New Driver</button> 
+    <a href="CreateAcc.php" class="button">Add New Driver</a> 
 </body>
 </html>
