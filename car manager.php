@@ -46,28 +46,30 @@
             text-align: center;
             margin-top: 20px;
         }
-        button {
+        button, a {
             padding: 8px 16px;
             border: none;
             cursor: pointer;
             border-radius: 4px;
             font-size: 16px;
+            text-decoration: none; 
+            display: inline-block; 
+            margin-right: 20px; 
         }
-        button.show-info {
+        button.show-info, a.show-info {
             background-color: #ffdb58; 
             color: black; 
         }
-        button.add-vehicle {
+        button.add-vehicle, a.add-vehicle {
             background-color: #4CAF50; 
             color: white; 
-            margin-right: 20px;
         }
-        button.make-available{
+        button.make-available, button.put-out-of-service {
             background-color: #4CAF50; 
             color: white; 
-            margin-right: 20px;
+            margin-right: 20px; 
         }
-        button.delete-vehicle, button.put-out-of-service {
+        button.delete-vehicle {
             background-color: #ff4d4f; 
             color: white; 
         }
@@ -77,9 +79,6 @@
         }
         th:nth-child(1) {
             background-color: #f2f2f2;
-        }
-        td:nth-child(2):contains("Out of Service") {
-            color: red;
         }
     </style>
 </head>
@@ -102,9 +101,9 @@
                     <td class="btn-container">
                         <button class="make-available">Make Available</button>
                         <button class="put-out-of-service">Put Out of Service</button>
-                        <button class="show-info">Show Info</button>
+                        <a href="show_infos.php" class="show-info">Show Info</a>
                     </td>
-                    <td>TOY22B0001</td>
+                    <td>TOY22B0001</td> 
                 </tr>
                 <tr>
                     <td>Honda Accord</td>
@@ -112,7 +111,7 @@
                     <td class="btn-container">
                         <button class="make-available">Make Available</button>
                         <button class="put-out-of-service">Put Out of Service</button>
-                        <button class="show-info">Show Info</button>
+                        <a href="show_infos.php" class="show-info">Show Info</a>
                     </td>
                     <td>HON22R0002</td>
                 </tr>
@@ -122,7 +121,7 @@
                     <td class="btn-container">
                         <button class="make-available">Make Available</button>
                         <button class="put-out-of-service">Put Out of Service</button>
-                        <button class="show-info">Show Info</button>
+                        <a href="show_infos.php" class="show-info">Show Info</a>
                     </td>
                     <td>FOR22G0003</td>
                 </tr>
@@ -132,7 +131,7 @@
                     <td class="btn-container">
                         <button class="make-available">Make Available</button>
                         <button class="put-out-of-service">Put Out of Service</button>
-                        <button class="show-info">Show Info</button>
+                        <a href="show_infos.php" class="show-info">Show Info</a>
                     </td>
                     <td>BMW22B0004</td>
                 </tr>
@@ -142,7 +141,7 @@
                     <td class="btn-container">
                         <button class="make-available">Make Available</button>
                         <button class="put-out-of-service">Put Out of Service</button>
-                        <button class="show-info">Show Info</button>
+                        <a href="show_infos.php" class="show-info">Show Info</a>
                     </td>
                     <td>CHE22R0005</td>
                 </tr>
@@ -152,7 +151,7 @@
                     <td class="btn-container">
                         <button class="make-available">Make Available</button>
                         <button class="put-out-of-service">Put Out of Service</button>
-                        <button class="show-info">Show Info</button>
+                        <a href="show_infos.php" class="show-info">Show Info</a>
                     </td>
                     <td>MER22G0006</td>
                 </tr>
@@ -162,7 +161,7 @@
                     <td class="btn-container">
                         <button class="make-available">Make Available</button>
                         <button class="put-out-of-service">Put Out of Service</button>
-                        <button class="show-info">Show Info</button>
+                        <a href="show_infos.php" class="show-info">Show Info</a>
                     </td>
                     <td>AUD22B0007</td>
                 </tr>
@@ -172,19 +171,36 @@
                     <td class="btn-container">
                         <button class="make-available">Make Available</button>
                         <button class="put-out-of-service">Put Out of Service</button>
-                        <button class="show-info">Show Info</button>
+                        <a href="show_infos.php" class="show-info">Show Info</a>
                     </td>
                     <td>NIS22R0008</td>
                 </tr>
                 <tr>
                     <td>Hyundai Sonata</td>
-                    <td>Available</td>
+                    <td>Available </td>
                     <td class="btn-container">
                         <button class="make-available">Make Available</button>
                         <button class="put-out-of-service">Put Out of Service</button>
-                        <button class="show-info">Show Info</button>
+                        <a href="show_infos.php" class="show-info">Show Info</a>
                     </td>
                     <td>HYU22G0009</td>
                 </tr>
                 <tr>
-                    <td>
+                    <td>Subaru Legacy</td>
+                    <td>Available</td>
+                    <td class="btn-container">
+                        <button class="make-available">Make Available</button>
+                        <button class="put-out-of-service">Put Out of Service</button>
+                        <a href="show_infos.php" class="show-info">Show Info</a>
+                    </td>
+                    <td>SUB22B0010</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="btn-container">
+            <a href="new_car.php" class="big-button add-vehicle">Add Vehicle</a>
+            <button class="big-button delete-vehicle">Delete Vehicle</button>
+        </div>
+    </div>
+</body>
+</html>
