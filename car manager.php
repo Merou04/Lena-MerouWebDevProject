@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f2f2f2;
+            background-color: #172b4d; /* Changed background color */
         }
         .container {
             max-width: 800px;
@@ -22,6 +22,7 @@
         h1 {
             text-align: center;
             margin-bottom: 20px;
+            color: #ffffff; /* Title text color changed to white */
         }
         table {
             width: 100%;
@@ -47,19 +48,30 @@
         }
         button {
             padding: 8px 16px;
-            background-color: #4CAF50;
-            color: white;
             border: none;
             cursor: pointer;
             border-radius: 4px;
             font-size: 16px;
         }
-        button:hover {
-            background-color: #45a049;
+        button.show-info {
+            background-color: #ffdb58; /* Show Info button color changed to yellow */
+            color: black; /* Text color changed */
+        }
+        button.add-vehicle {
+            background-color: #4CAF50; /* Add Vehicle button color */
+            color: white; /* Text color changed */
+            margin-right: 20px;
+        }
+        button.delete-vehicle, button.put-out-of-service {
+            background-color: #ff4d4f; /* Delete Vehicle and Put Out of Service button color changed to red */
+            color: white; /* Text color changed */
         }
         .big-button {
             padding: 12px 24px;
             font-size: 18px;
+        }
+        th:nth-child(1) {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
@@ -79,99 +91,17 @@
                     <td>Toyota Camry</td>
                     <td>Available</td>
                     <td class="btn-container">
-                        <button>Make Available</button>
-                        <button>Put Out of Service</button>
-                        <button>Show Info</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Honda Accord</td>
-                    <td>Out of Service</td>
-                    <td class="btn-container">
-                        <button>Make Available</button>
-                        <button>Put Out of Service</button>
-                        <button>Show Info</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Ford Fusion</td>
-                    <td>Available</td>
-                    <td class="btn-container">
-                        <button>Make Available</button>
-                        <button>Put Out of Service</button>
-                        <button>Show Info</button>
+                        <button class="make-available">Make Available</button>
+                        <button class="put-out-of-service">Put Out of Service</button>
+                        <button class="show-info">Show Info</button>
                     </td>
                 </tr>
                 <!-- Add more rows for additional vehicles -->
-                <tr>
-                    <td>BMW 3 Series</td>
-                    <td>Available</td>
-                    <td class="btn-container">
-                        <button>Make Available</button>
-                        <button>Put Out of Service</button>
-                        <button>Show Info</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Chevrolet Cruze</td>
-                    <td>Out of Service</td>
-                    <td class="btn-container">
-                        <button>Make Available</button>
-                        <button>Put Out of Service</button>
-                        <button>Show Info</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mercedes-Benz C-Class</td>
-                    <td>Available</td>
-                    <td class="btn-container">
-                        <button>Make Available</button>
-                        <button>Put Out of Service</button>
-                        <button>Show Info</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Audi A4</td>
-                    <td>Available</td>
-                    <td class="btn-container">
-                        <button>Make Available</button>
-                        <button>Put Out of Service</button>
-                        <button>Show Info</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nissan Altima</td>
-                    <td>Out of Service</td>
-                    <td class="btn-container">
-                        <button>Make Available</button>
-                        <button>Put Out of Service</button>
-                        <button>Show Info</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Hyundai Sonata</td>
-                    <td>Available</td>
-                    <td class="btn-container">
-                        <button>Make Available</button>
-                        <button>Put Out of Service</button>
-                        <button>Show Info</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Subaru Legacy</td>
-                    <td>Available</td>
-                    <td class="btn-container">
-                        <button>Make Available</button>
-                        <button>Put Out of Service</button>
-                        <button>Show Info</button>
-                    </td>
-                </tr>
-                <!-- Add more rows for existing vehicles -->
             </tbody>
         </table>
         <div class="btn-container">
-            <button class="big-button" style="margin-right: 20px;">Add Vehicle</button>
-            <button class="big-button">Delete Vehicle</button>
+            <button class="big-button add-vehicle">Add Vehicle</button>
+            <button class="big-button delete-vehicle">Delete Vehicle</button>
         </div>
     </div>
 </body>
