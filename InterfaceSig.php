@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quel problème rencontrez-vous durant la mission ?</title>
+    <title>What problem are you encountering?</title>
     <style>
         body {
             margin: 0;
@@ -13,7 +13,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(45deg, #FFA500, #FFFF00);
+            background: linear-gradient(45deg, #172b4d, #2c3e50); /* Navy blue gradients */
+            color: #fff; /* White text */
         }
 
         .container {
@@ -24,6 +25,10 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             max-width: 600px;
             width: 80%;
+        }
+
+        h2 {
+            color: #FFD700; /* Moutarde jaune */
         }
 
         textarea {
@@ -37,8 +42,8 @@
         }
 
         input[type="submit"] {
-            background-color: #FFA500;
-            color: white;
+            background-color: #ffdb58; /* Mustard yellow */
+            color: #333; /* Dark gray text */
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -46,18 +51,16 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #FF8C00;
+            background-color: #ccab42; /* Darker mustard yellow on hover */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Quel problème rencontrez-vous durant la mission ?</h2>
-        <textarea rows="8" placeholder="Décrivez le problème rencontré ici..." required></textarea>
+        <h2>What problem are you encountering?</h2>
+        <textarea rows="8" placeholder="Describe the problem encountered here..." required></textarea>
         <br>
-        <input type="submit" value="Soumettre">
+        <input type="submit" value="Submit">
     </div>
 </body>
 </html>
-
-       
