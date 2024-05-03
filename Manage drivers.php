@@ -78,7 +78,7 @@
                 <td>Class A</td>
                 <td>Experienced truck driver with over 10 years on the road.</td>
                 <td>
-                    <button>Delete</button>
+                    <button onclick="window.location.href = 'confirm delete.php';">Delete</button>
                     <button>Update</button>
                 </td>
             </tr>
@@ -88,7 +88,7 @@
                 <td>Class B</td>
                 <td>City bus driver with strong record of punctuality and safety.</td>
                 <td>
-                    <button>Delete</button>
+                    <button onclick="window.location.href = 'confirm delete.php';">Delete</button>
                     <button>Update</button>
                 </td>
             </tr>
@@ -98,7 +98,7 @@
                 <td>Class C</td>
                 <td>Long-haul specialist, skilled in navigation and efficient route planning.</td>
                 <td>
-                    <button>Delete</button>
+                    <button onclick="window.location.href = 'confirm delete.php';">Delete</button>
                     <button>Update</button>
                 </td>
             </tr>
@@ -108,7 +108,7 @@
                 <td>Class D</td>
                 <td>Offers over 15 years of driving experience across multiple vehicle types.</td>
                 <td>
-                    <button>Delete</button>
+                    <button onclick="window.location.href = 'confirm delete.php';">Delete</button>
                     <button>Update</button>
                 </td>
             </tr>
@@ -119,4 +119,3 @@
     </div>
 </body>
 </html>
-
