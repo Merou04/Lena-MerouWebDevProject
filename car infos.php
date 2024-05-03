@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f2f2f2;
+            background-color: #172b4d; 
         }
         .container {
             max-width: 800px;
@@ -41,12 +41,29 @@
         tr:hover {
             background-color: #e6e6e6;
         }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        .edit-mode input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Vehicle Information</h1>
-        <table>
+        <table id="vehicle-info-table">
             <tr>
                 <th>Name of Vehicle</th>
                 <td>Toyota Camry</td>
@@ -80,6 +97,11 @@
                 <td>10000 miles</td>
             </tr>
         </table>
+        <div class="btn-container">
+            <button onclick="toggleEditMode()">Edit</button>
+            <button onclick="saveChanges()">Save</button>
+        </div>
     </div>
+
 </body>
 </html>
