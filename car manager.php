@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #172b4d; /* Changed background color */
+            background-color: #172b4d; 
         }
         .container {
             max-width: 800px;
@@ -22,7 +22,7 @@
         h1 {
             text-align: center;
             margin-bottom: 20px;
-            color: #ffffff; /* Title text color changed to white */
+            color: #000000; 
         }
         table {
             width: 100%;
@@ -54,17 +54,22 @@
             font-size: 16px;
         }
         button.show-info {
-            background-color: #ffdb58; /* Show Info button color changed to yellow */
-            color: black; /* Text color changed */
+            background-color: #ffdb58; 
+            color: black; 
         }
         button.add-vehicle {
-            background-color: #4CAF50; /* Add Vehicle button color */
-            color: white; /* Text color changed */
+            background-color: #4CAF50; 
+            color: white; 
+            margin-right: 20px;
+        }
+        button.make-available{
+            background-color: #4CAF50; 
+            color: white; 
             margin-right: 20px;
         }
         button.delete-vehicle, button.put-out-of-service {
-            background-color: #ff4d4f; /* Delete Vehicle and Put Out of Service button color changed to red */
-            color: white; /* Text color changed */
+            background-color: #ff4d4f; 
+            color: white; 
         }
         .big-button {
             padding: 12px 24px;
@@ -72,6 +77,9 @@
         }
         th:nth-child(1) {
             background-color: #f2f2f2;
+        }
+        td:nth-child(2):contains("Out of Service") {
+            color: red;
         }
     </style>
 </head>
@@ -84,6 +92,7 @@
                     <th>Vehicle</th>
                     <th>Status</th>
                     <th>Action</th>
+                    <th>Code</th> 
                 </tr>
             </thead>
             <tbody>
@@ -95,14 +104,87 @@
                         <button class="put-out-of-service">Put Out of Service</button>
                         <button class="show-info">Show Info</button>
                     </td>
+                    <td>TOY22B0001</td>
                 </tr>
-                <!-- Add more rows for additional vehicles -->
-            </tbody>
-        </table>
-        <div class="btn-container">
-            <button class="big-button add-vehicle">Add Vehicle</button>
-            <button class="big-button delete-vehicle">Delete Vehicle</button>
-        </div>
-    </div>
-</body>
-</html>
+                <tr>
+                    <td>Honda Accord</td>
+                    <td>Out of Service</td>
+                    <td class="btn-container">
+                        <button class="make-available">Make Available</button>
+                        <button class="put-out-of-service">Put Out of Service</button>
+                        <button class="show-info">Show Info</button>
+                    </td>
+                    <td>HON22R0002</td>
+                </tr>
+                <tr>
+                    <td>Ford Fusion</td>
+                    <td>Available</td>
+                    <td class="btn-container">
+                        <button class="make-available">Make Available</button>
+                        <button class="put-out-of-service">Put Out of Service</button>
+                        <button class="show-info">Show Info</button>
+                    </td>
+                    <td>FOR22G0003</td>
+                </tr>
+                <tr>
+                    <td>BMW 3 Series</td>
+                    <td>Available</td>
+                    <td class="btn-container">
+                        <button class="make-available">Make Available</button>
+                        <button class="put-out-of-service">Put Out of Service</button>
+                        <button class="show-info">Show Info</button>
+                    </td>
+                    <td>BMW22B0004</td>
+                </tr>
+                <tr>
+                    <td>Chevrolet Cruze</td>
+                    <td>Out of Service</td>
+                    <td class="btn-container">
+                        <button class="make-available">Make Available</button>
+                        <button class="put-out-of-service">Put Out of Service</button>
+                        <button class="show-info">Show Info</button>
+                    </td>
+                    <td>CHE22R0005</td>
+                </tr>
+                <tr>
+                    <td>Mercedes-Benz C-Class</td>
+                    <td>Available</td>
+                    <td class="btn-container">
+                        <button class="make-available">Make Available</button>
+                        <button class="put-out-of-service">Put Out of Service</button>
+                        <button class="show-info">Show Info</button>
+                    </td>
+                    <td>MER22G0006</td>
+                </tr>
+                <tr>
+                    <td>Audi A4</td>
+                    <td>Available</td>
+                    <td class="btn-container">
+                        <button class="make-available">Make Available</button>
+                        <button class="put-out-of-service">Put Out of Service</button>
+                        <button class="show-info">Show Info</button>
+                    </td>
+                    <td>AUD22B0007</td>
+                </tr>
+                <tr>
+                    <td>Nissan Altima</td>
+                    <td>Out of Service</td>
+                    <td class="btn-container">
+                        <button class="make-available">Make Available</button>
+                        <button class="put-out-of-service">Put Out of Service</button>
+                        <button class="show-info">Show Info</button>
+                    </td>
+                    <td>NIS22R0008</td>
+                </tr>
+                <tr>
+                    <td>Hyundai Sonata</td>
+                    <td>Available</td>
+                    <td class="btn-container">
+                        <button class="make-available">Make Available</button>
+                        <button class="put-out-of-service">Put Out of Service</button>
+                        <button class="show-info">Show Info</button>
+                    </td>
+                    <td>HYU22G0009</td>
+                </tr>
+                <tr>
+                    <td>
