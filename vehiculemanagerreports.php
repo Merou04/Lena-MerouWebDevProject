@@ -94,7 +94,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Toyota Camry</td>
+                    <td>Toyota Corolla/td>
                     <td>123</td>
                     <td>Replaced brake pads and rotors due to wear and tear.</td>
                     <td>$200</td>
@@ -104,7 +104,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Honda Accord</td>
+                    <td>Mercedes Ml</td>
                     <td>456</td>
                     <td>Performed oil change and filter replacement as part of routine maintenance.</td>
                     <td>$50</td>
@@ -114,7 +114,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Ford Mustang</td>
+                    <td>Ford K</td>
                     <td>789</td>
                     <td>Replaced worn-out tires with new ones for improved safety and performance.</td>
                     <td>$300</td>
@@ -124,7 +124,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Chevrolet Malibu</td>
+                    <td>Nissan Sunny</td>
                     <td>246</td>
                     <td>Performed engine tune-up to address performance issues and optimize fuel efficiency.</td>
                     <td>$150</td>
