@@ -6,52 +6,52 @@
     <title>Driver Management</title>
     <style>
         body {
-            background: #f5f5f5; /* Soft gray background for a gentle, light feel */
+            background: #f5f5f5; 
             font-family: 'Arial', sans-serif;
             padding: 20px;
-            color: #333; /* Dark gray text for readability */
+            color: #333; 
         }
         .title {
             text-align: center;
-            font-size: 24px; /* Slightly smaller font size for simplicity */
-            color: #172b4d; /* Deep navy blue for the title */
-            margin-bottom: 20px; /* Extra space below the title */
+            font-size: 24px;
+            color: #172b4d; 
+            margin-bottom: 20px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: white; /* Solid white background for the table to stand out */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-            margin-bottom: 20px; /* Space before the button */
+            background-color: white; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            margin-bottom: 20px; 
         }
         th, td {
-            border: 1px solid #dee2e6; /* Very light gray border, almost white */
+            border: 1px solid #dee2e6; 
             padding: 8px;
             text-align: left;
         }
         th {
-            background-color: #172b4d; /* Deep navy blue for headers */
-            color: white; /* White text for headers */
+            background-color: #172b4d; 
+            color: white; 
         }
         button {
             cursor: pointer;
             padding: 5px 10px;
-            background-color: #ffdb58; /* Mustard yellow */
-            color: #333; /* Dark gray text */
+            background-color: #ffdb58; 
+            color: #333; 
             border: none;
             border-radius: 5px;
             margin-right: 4px;
         }
         button:hover {
-            background-color: #ccab42; /* Even darker mustard yellow on hover */
+            background-color: #ccab42; 
         }
         .add-button {
             display: block;
             width: 200px;
-            margin: 20px auto; /* Centering the button */
+            margin: 20px auto;
             font-size: 16px;
-            background-color: #ffdb58; /* Mustard yellow to match the action buttons */
-            color: #333; /* Dark gray text for button */
+            background-color: #ffdb58; 
+            color: #333; 
         }
     </style>
 </head>
@@ -110,6 +110,6 @@
             </tr>
         </tbody>
     </table>
-    <button class="add-button">Add New Driver</button> <!-- Button is now below the table -->
+    <button class="add-button">Add New Driver</button> 
 </body>
 </html>
