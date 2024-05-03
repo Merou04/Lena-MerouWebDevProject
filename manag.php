@@ -1,7 +1,7 @@
 <style>
     body{
         font-family: Arial;
-        background-color:#F7DC6F;
+        background-color:#172b4d;
     }
     .block {
     max-width: 600px;
@@ -13,7 +13,7 @@
     }
     .button{
         text-align: center;
-        background-color:orange; 
+        background-color:#ffdb58; 
         color: #fff;
         border: none;
         padding: 10px 20px;

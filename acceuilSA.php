@@ -1,7 +1,7 @@
 <style>
     body{
         font-family: Arial;
-        background-color:#F7DC6F;
+        background-color:#172b4d;
     }
     .block {
     max-width: 500px;
@@ -13,7 +13,7 @@
     }
     .button{
         text-align: center;
-        background-color:orange; 
+        background-color:#ffdb58; 
         color: #fff;
         border: none;
         padding: 10px 20px;
@@ -32,7 +32,7 @@
             <h1>What to do?</h1>
             <a href="manag.php" class="button">Manage mission</a>
         <!--    <br><br><br>  -->
-            <a href="CreateAcc.php" class="button">Create an account</a>
+            <a href="CreateAcc.php" class="button">Add new driver</a>
         <!--    <br><br><br>  -->
             <a href="report.php" class="button">View report</a>
             <br><br>

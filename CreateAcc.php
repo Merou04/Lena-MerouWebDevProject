@@ -1,7 +1,7 @@
 <style>
     body {
     font-family: Arial;
-    background-color:#F7DC6F;
+    background-color:#172b4d;
     }
     .block {
     max-width: 400px;
@@ -31,8 +31,17 @@
     border-radius: 5px;
     box-sizing: border-box;
     }
+    textarea{
+        width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            resize: none;
+    }
     button {
-    background-color:orange; 
+    background-color:#ffdb58; 
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -42,7 +51,7 @@
     }
     img {
     display: block;
-    margin: 0 auto 20px; /*image au centre*/
+    margin: 0 auto 20px;
     }
     select {
         width: 100%;
@@ -60,7 +69,7 @@
     </head>
     <body>
         <div class="block">
-            <h2>Create an Account</h2>
+            <h2>Create a driver's account</h2>
             <img src="C:/images" alt="Driver's picture" width="150">
             <label>Username:</label>
             <input type="text" id="username" name="username" required>
@@ -75,6 +84,9 @@
                 </select>
             <label>Tel:</label>
             <input type="tel" name="tel" placeholder="Num tel"/>
+            <br>
+            <label>Description of the driver:</label>
+            <textarea name="Description"></textarea>
             <br>
             <label>Email:</label>
             <input type="email" id="email" name="email" required>

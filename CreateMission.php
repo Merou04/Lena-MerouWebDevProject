@@ -1,7 +1,7 @@
 <style>
      body {
     font-family: Arial;
-    background-color:#F7DC6F;
+    background-color:#172b4d;
     }
     .block {
     max-width: 400px;
@@ -24,7 +24,7 @@
     }
     button{
         text-align: center;
-        background-color:orange; 
+        background-color:#ffdb58; 
         color: #fff;
         border: none;
         padding: 10px 20px;
@@ -33,10 +33,10 @@
     }
     .button{
         text-align: center;
-        background-color:#febe33; 
+        background-color:#FCC764; 
         color: #fff;
         border: none;
-        padding: 10px 20px;
+        padding: 8px 20px;
         border-radius: 5px;
         width: 100%;
     }
@@ -48,28 +48,28 @@
     <body>
         <div class="block">
         <h1>Create a mission:</h1>
-        <label>N* mission:</label>
+        <label>Mission's number:</label>
             <input type="number" name="nbr" placeholder="Mission"/>
             <br>
         <Label>Type mission:</Label>
             <input type="text" name="mission" placeholder="Mission"/>
             <br>
-        <label>Type de marchandse:</label>
-            <input type="text" name="marchandise" placeholder="Marchandise"/>
+        <label>Type of merchandise:</label>
+            <input type="text" name="merchandise" placeholder="Merchandise"/>
             <br>
-        <Label>Localisation:</Label>
-            <input type="text" name="localisation" placeholder="Lieu de livraison"/>
+        <Label>Location:</Label>
+            <input type="text" name="location" placeholder="Delivery location"/>
             <br>
         <label>Date:</label>
             <input type="date" name="date" placeholder="date"/>
             <br>
-        <label>Heure de depart:</label>
+        <label>Departure time:</label>
             <input type="time" name="Start" placeholder="Start"/>
             <br>
-        <label>Choisir chauffeur:</label>
-        <a href="fichier php ch dispo" class="button">Chauffeur</a>
+        <label>Choose driver:</label>
+        <a href="fichier php ch dispo" class="button">Driver</a>
         <br><br><br>
-        <label>Choisir vehicule:</label>
+        <label>Choose vehicule:</label>
         <a href="fichier php veh dispo" class="button">Vehicule</a> 
         <br><br>   
         <button type="submit">Submit mission</button>

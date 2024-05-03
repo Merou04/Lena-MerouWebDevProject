@@ -1,7 +1,7 @@
 <style>
     body{
         text-align: center;
-        background-color:#F7DC6F;
+        background-color:#172b4d;
     }
         th, td {
             border: 1px solid #ddd;
@@ -9,7 +9,7 @@
             text-align: left;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #AAB7B8;
         }
         .scrollable {
         max-height: 200px;
@@ -35,7 +35,7 @@
                 <table width=100%>                
                     <tr>
                         <th>Mission's number</th>
-                        <th>Localisation</th>
+                        <th>Location</th>
                         <th>Driver</th>
                         <th>Vehicule</th>
                         <th>State</th>
