@@ -69,8 +69,8 @@
         <label>Choose driver:</label>
         <a href="fichier php ch dispo" class="button">Driver</a>
         <br><br><br>
-        <label>Choose vehicule:</label>
-        <a href="fichier php veh dispo" class="button">Vehicule</a> 
+        <label>Choose vehicle:</label>
+        <a href="availiblecars.php" class="button">Vehicle</a> 
         <br><br>   
         <button type="submit">Submit mission</button>
         </div>
