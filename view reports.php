@@ -53,8 +53,8 @@
 <body>
     <div class="report-container">
         <h2>Report Management</h2>
-        <button>Driver Reports</button> 
-        <button>Vehicle Manager Reports</button>
+        <button onclick="window.location.href = 'view drivers reports.php';">Driver Reports</button> 
+        <button onclick="window.location.href = 'vehiculemanagerreports.php';">Vehicle Manager Reports</button>
     </div>
 </body>
 </html>
