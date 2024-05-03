@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f2f2f2;
+            background-color: #172b4d;
         }
         .container {
             max-width: 600px;
@@ -100,6 +100,10 @@
             <div class="form-group">
                 <label for="mileage_next_maintenance">Mileage of Next Maintenance:</label>
                 <input type="number" id="mileage_next_maintenance" name="mileage_next_maintenance" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="vehicle_code">Vehicle Code:</label>
+                <input type="text" id="vehicle_code" name="vehicle_code" required>
             </div>
             <button type="submit">Submit</button>
         </form>
