@@ -73,7 +73,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>John Doe</td>
+                <td>Mestapaha Dabzedine</td>
                 <td>1980-04-25</td>
                 <td>Class A</td>
                 <td>Experienced truck driver with over 10 years on the road.</td>
@@ -83,7 +83,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Jane Smith</td>
+                <td>Mernouz Zakaria</td>
                 <td>1992-07-16</td>
                 <td>Class B</td>
                 <td>City bus driver with strong record of punctuality and safety.</td>
@@ -93,7 +93,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Sam Lee</td>
+                <td>Fella Boufelfel</td>
                 <td>1985-03-30</td>
                 <td>Class C</td>
                 <td>Long-haul specialist, skilled in navigation and efficient route planning.</td>
@@ -103,7 +103,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Alex Rivera</td>
+                <td>Connor Mcgregor</td>
                 <td>1975-11-11</td>
                 <td>Class D</td>
                 <td>Offers over 15 years of driving experience across multiple vehicle types.</td>
