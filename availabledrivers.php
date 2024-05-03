@@ -70,18 +70,18 @@
         </thead>
         <tbody>
             <tr>
-                <td>John</td>
-                <td>Doe</td>
+                <td>karim</td>
+                <td>Douaa</td>
                 <td style="background-color: #2ecc71;">Available</td>
             </tr>
             <tr>
-                <td>Jane</td>
-                <td>Smith</td>
+                <td>Jebali</td>
+                <td>Sliman</td>
                 <td style="background-color: #e74c3c;">On Leave</td>
             </tr>
             <tr>
-                <td>Sam</td>
-                <td>Lee</td>
+                <td>Samia</td>
+                <td>Lylia</td>
                 <td style="background-color: #f39c12;">On Mission</td>
             </tr>
             <!-- Repeat more rows as needed -->
