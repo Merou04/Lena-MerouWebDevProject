@@ -20,11 +20,11 @@
         border-radius: 5px;
         width: 100%;
     }
-</style>
+ </style>
 
 <html>
     <head>
-        <title>Acceuil SUPER Admin </title>
+        <title>SUPER Admin</title>
     </head>
     <body>
         <div class="block" >

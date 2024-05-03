@@ -20,9 +20,9 @@
         border-radius: 5px;
         width: 100%;
     }
-</style>
+ </style>
 <html>
-    <head><title>Choix</title></head>
+    <head><title>Choice</title></head>
     <body>
         <div class="block">
             <div style="text-align :center;">
