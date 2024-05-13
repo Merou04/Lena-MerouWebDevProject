@@ -50,17 +50,27 @@
 <div class="container">
   <h1>List of Vehicles</h1>
   <ul>
-    <li><span>Toyota Camry</span> <span>21B001</span> <button>Select</button></li>
-    <li><span>Honda Civic</span> <span>22R002</span> <button>Select</button></li>
-    <li><span>Ford Mustang</span> <span>21G003</span> <button>Select</button></li>
-    <li><span>Chevrolet Corvette</span> <span>23W004</span> <button>Select</button></li>
-    <li><span>BMW X5</span> <span>22R005</span> <button>Select</button></li>
-    <li><span>Audi A4</span> <span>21B006</span> <button>Select</button></li>
-    <li><span>Mercedes-Benz E-Class</span> <span>23W007</span> <button>Select</button></li>
-    <li><span>Volkswagen Golf</span> <span>22R008</span> <button>Select</button></li>
-    <li><span>Jeep Wrangler</span> <span>23W009</span> <button>Select</button></li>
-    <li><span>Nissan Altima</span> <span>21G010</span> <button>Select</button></li>
+    <li><span>Toyota Camry</span> <span>21B001</span> <form method="post"><input type="hidden" name="vehicle" value="Toyota Camry"><button type="submit" name="submit">Select</button></form></li>
+    <li><span>Honda Civic</span> <span>22R002</span> <form method="post"><input type="hidden" name="vehicle" value="Honda Civic"><button type="submit" name="submit">Select</button></form></li>
+    <li><span>Ford Mustang</span> <span>21G003</span> <form method="post"><input type="hidden" name="vehicle" value="Ford Mustang"><button type="submit" name="submit">Select</button></form></li>
+    <li><span>Chevrolet Corvette</span> <span>23W004</span> <form method="post"><input type="hidden" name="vehicle" value="Chevrolet Corvette"><button type="submit" name="submit">Select</button></form></li>
+    <li><span>BMW X5</span> <span>22R005</span> <form method="post"><input type="hidden" name="vehicle" value="BMW X5"><button type="submit" name="submit">Select</button></form></li>
+    <li><span>Audi A4</span> <span>21B006</span> <form method="post"><input type="hidden" name="vehicle" value="Audi A4"><button type="submit" name="submit">Select</button></form></li>
+    <li><span>Mercedes-Benz E-Class</span> <span>23W007</span> <form method="post"><input type="hidden" name="vehicle" value="Mercedes-Benz E-Class"><button type="submit" name="submit">Select</button></form></li>
+    <li><span>Volkswagen Golf</span> <span>22R008</span> <form method="post"><input type="hidden" name="vehicle" value="Volkswagen Golf"><button type="submit" name="submit">Select</button></form></li>
+    <li><span>Jeep Wrangler</span> <span>23W009</span> <form method="post"><input type="hidden" name="vehicle" value="Jeep Wrangler"><button type="submit" name="submit">Select</button></form></li>
+    <li><span>Nissan Altima</span> <span>21G010</span> <form method="post"><input type="hidden" name="vehicle" value="Nissan Altima"><button type="submit" name="submit">Select</button></form></li>
   </ul>
 </div>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    $selectedVehicle = $_POST['vehicle'];
+    echo "<div class='container'>";
+    echo "<h2>Selected Vehicle: $selectedVehicle</h2>";
+    echo "</div>";
+}
+?>
+
 </body>
 </html>
