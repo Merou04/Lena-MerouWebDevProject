@@ -63,45 +63,58 @@
 <body>
     <div class="container">
         <h1>Vehicle Information</h1>
-        <table id="vehicle-info-table">
-            <tr>
-                <th>Name of Vehicle</th>
-                <td>Toyota Camry</td>
-            </tr>
-            <tr>
-                <th>Year</th>
-                <td>2022</td>
-            </tr>
-            <tr>
-                <th>License Plate</th>
-                <td>ABC123</td>
-            </tr>
-            <tr>
-                <th>Color</th>
-                <td>Red</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>Sedan</td>
-            </tr>
-            <tr>
-                <th>Last Mileage Recorded</th>
-                <td>5000 miles</td>
-            </tr>
-            <tr>
-                <th>Date of Last Check</th>
-                <td>2024-05-01</td>
-            </tr>
-            <tr>
-                <th>Mileage of Next Maintenance</th>
-                <td>10000 miles</td>
-            </tr>
-        </table>
-        <div class="btn-container">
-            <button onclick="toggleEditMode()">Edit</button>
-            <button onclick="saveChanges()">Save</button>
-        </div>
+        <form method="post" id="vehicle-info-form">
+            <table id="vehicle-info-table">
+                <tr>
+                    <th>Name of Vehicle</th>
+                    <td><span class="vehicle-name">Toyota Camry</span><input type="text" class="edit-mode" name="name" value="Toyota Camry" style="display: none;"></td>
+                </tr>
+                <tr>
+                    <th>Year</th>
+                    <td><span class="vehicle-year">2022</span><input type="text" class="edit-mode" name="year" value="2022" style="display: none;"></td>
+                </tr>
+                <tr>
+                    <th>License Plate</th>
+                    <td><span class="vehicle-license">ABC123</span><input type="text" class="edit-mode" name="license" value="ABC123" style="display: none;"></td>
+                </tr>
+                <!-- Add other vehicle information here -->
+            </table>
+            <div class="btn-container">
+                <button type="button" onclick="toggleEditMode()">Edit</button>
+                <button type="submit" name="submit">Save</button>
+            </div>
+        </form>
     </div>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+        // Get form data
+        $name = $_POST['name'];
+        $year = $_POST['year'];
+        $license = $_POST['license'];
+        // Update displayed information
+        echo "<script>";
+        echo "document.querySelector('.vehicle-name').innerText = '$name';";
+        echo "document.querySelector('.vehicle-year').innerText = '$year';";
+        echo "document.querySelector('.vehicle-license').innerText = '$license';";
+        echo "</script>";
+    }
+    ?>
+
+    <script>
+        function toggleEditMode() {
+            var editInputs = document.querySelectorAll('.edit-mode');
+            for (var i = 0; i < editInputs.length; i++) {
+                if (editInputs[i].style.display === 'none') {
+                    editInputs[i].style.display = 'inline-block';
+                    editInputs[i].previousElementSibling.style.display = 'none';
+                } else {
+                    editInputs[i].style.display = 'none';
+                    editInputs[i].previousElementSibling.style.display = 'inline-block';
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
