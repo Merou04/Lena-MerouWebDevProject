@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* Light gray background */
+            background-color: #172b4d; /* Navy blue background */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,13 +21,27 @@
         }
 
         h1 {
-            color: #333; /* Dark gray heading */
+            color: #fff; /* White heading */
             margin-bottom: 10px;
         }
 
         p {
-            color: #666; /* Medium gray text */
+            color: #ccc; /* Light gray text */
             margin-bottom: 0;
+        }
+
+        .return-button {
+            background-color: #ffdb58; /* Yellow */
+            color: #fff; /* White text */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .return-button:hover {
+            background-color: #ccab42; /* Darker yellow on hover */
         }
     </style>
 </head>
@@ -35,6 +49,7 @@
     <div class="container">
         <h1>No Current Mission</h1>
         <p>There are no missions available at the moment.</p>
+        <button class="return-button" onclick="openInterface()">Return</button>
     </div>
-</body>
-</html>
+
+    <script>
