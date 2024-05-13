@@ -74,17 +74,6 @@
         }
     </style>
 </head>
-    <?php
-session_start();
-
- $host = "localhost";
- $dbuser = "root";
- $dbpass = "";
- $dbname = "CarTrack";
- $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
- 
- // recherche dans la bdd et display
- ?>
 <body>
     <div class="container">
         <div class="profile-image">
@@ -98,5 +87,48 @@ session_start();
             <a href="InterfaceMS.php" class="button">View Mission</a>
         </div>
     </div>
+
+    <?php
+    // Connexion à la base de données
+    $host = "localhost";
+    $dbuser = "root";
+    $dbpass = "";
+    $dbname = "CarTrack";
+    $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
+
+    // Vérifier la connexion
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    // Requête SQL pour récupérer les informations de l'utilisateur
+    $sql = "SELECT * FROM drivers WHERE id = 1"; // Vous devez remplacer "1" par l'ID de l'utilisateur dont vous voulez afficher les informations
+
+    // Exécution de la requête
+    $result = mysqli_query($conn, $sql);
+
+    // Vérification s'il y a des résultats
+    if (mysqli_num_rows($result) > 0) {
+        // Récupération des données de l'utilisateur
+        $row = mysqli_fetch_assoc($result);
+        $driverName = $row["driver_name"];
+        $dateOfBirth = $row["date_of_birth"];
+        $licenseType = $row["license_type"];
+        $description = $row["description"];
+
+        // Affichage des données de l'utilisateur
+        echo "<script>
+                document.querySelector('.profile-info h2').innerText = 'Driver\'s Name: $driverName';
+                document.querySelectorAll('.profile-info p')[0].innerText = 'Date of Birth: $dateOfBirth';
+                document.querySelectorAll('.profile-info p')[1].innerText = 'License Type: $licenseType';
+                document.querySelectorAll('.profile-info p')[2].innerText = 'Driver\'s Description: $description';
+              </script>";
+    } else {
+        echo "0 results";
+    }
+
+    // Fermeture de la connexion
+    mysqli_close($conn);
+    ?>
 </body>
 </html>
