@@ -13,8 +13,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(45deg, #172b4d, #2c3e50); 
-            color: #fff; 
+            background: linear-gradient(45deg, #172b4d, #2c3e50); /* Navy blue gradients */
+            color: #fff; /* White text */
         }
 
         .container {
@@ -28,7 +28,7 @@
         }
 
         h2 {
-            color: #172b4d; 
+            color: #172b4d; /* Navy blue */
         }
 
         textarea {
@@ -38,12 +38,12 @@
             border-radius: 5px;
             border: 1px solid #ccc;
             box-sizing: border-box;
-            resize: vertical; 
+            resize: vertical; /* permet le redimensionnement vertical de la zone de texte */
         }
 
         input[type="submit"] {
-            background-color: #ffdb58; 
-            color: #333; 
+            background-color: #ffdb58; /* Mustard yellow */
+            color: #333; /* Dark gray text */
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -51,17 +51,18 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #ccab42; 
+            background-color: #ccab42; /* Darker mustard yellow on hover */
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>What problem are you encountering?</h2>
-        <textarea rows="8" placeholder="Describe the problem encountered here..." required></textarea>
-        <br>
-        <input type="submit" value="Submit">
+        <form action="ACCEPTMISSION.PHP" method="post">
+            <textarea name="problem" rows="8" placeholder="Describe the problem encountered here..." required></textarea>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
     </div>
 </body>
-    
 </html>
