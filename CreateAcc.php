@@ -69,8 +69,37 @@ $host = "localhost";
  $dbpass = "";
  $dbname = "CarTrack";
  $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
- 
-// insert in table avec les attributs...
+ if(isset($_GET["sbt"])){
+    $username= $_get[username];
+    $bday =$_get[birthdate];
+    $lic=$_get[licence];
+    switch ($lic) {
+        case '1':
+            $licence="A";
+            break;
+        case '2':
+            $licence="B";
+            break;
+            case '3':
+                $licence="C";break;
+        default:
+            # code...
+            break;
+    }
+    $tel=$_get[tel];
+    $descrip=$_get[description];
+    $mail=$_get[email];
+    $pass =$_GET[password];
+    $psw = password_hash($pass, PASSWORD_DEFAULT);
+    //$sql = "INSERT INTO driver values (23456,$username,$bday,$licence,$tel,$descrip,$mail,$psw)";
+   // insert in table avec les attributs...
+}
+if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
 ?>
 
  <html>
