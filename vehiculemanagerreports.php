@@ -94,55 +94,29 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Toyota Corolla/td>
+                    <td>Toyota Camry</td>
                     <td>123</td>
                     <td>Replaced brake pads and rotors due to wear and tear.</td>
                     <td>$200</td>
                     <td class="button-container">
-                        <button class="button accept">Accept</button>
-                        <button class="button decline">Decline</button>
+                        <?php
+                            // Actions des boutons
+                            if(isset($_POST['toyota_accept'])) {
+                                echo "<script>alert('Report accepted, you have the admin permission');</script>";
+                            } elseif(isset($_POST['toyota_decline'])) {
+                                echo "<script>alert('Cost declined');</script>";
+                            }
+                        ?>
+                        <!-- Formulaires pour gérer les actions -->
+                        <form action="" method="post">
+                            <button class="button accept" type="submit" name="toyota_accept">Accept</button>
+                        </form>
+                        <form action="" method="post">
+                            <button class="button decline" type="submit" name="toyota_decline">Decline</button>
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <td>Mercedes Ml</td>
-                    <td>456</td>
-                    <td>Performed oil change and filter replacement as part of routine maintenance.</td>
-                    <td>$50</td>
-                    <td class="button-container">
-                        <button class="button accept">Accept</button>
-                        <button class="button decline">Decline</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Ford K</td>
-                    <td>789</td>
-                    <td>Replaced worn-out tires with new ones for improved safety and performance.</td>
-                    <td>$300</td>
-                    <td class="button-container">
-                        <button class="button accept">Accept</button>
-                        <button class="button decline">Decline</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nissan Sunny</td>
-                    <td>246</td>
-                    <td>Performed engine tune-up to address performance issues and optimize fuel efficiency.</td>
-                    <td>$150</td>
-                    <td class="button-container">
-                        <button class="button accept">Accept</button>
-                        <button class="button decline">Decline</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>BMW 3 Series</td>
-                    <td>135</td>
-                    <td>Replaced worn-out suspension components to improve ride quality and handling.</td>
-                    <td>$500</td>
-                    <td class="button-container">
-                        <button class="button accept">Accept</button>
-                        <button class="button decline">Decline</button>
-                    </td>
-                </tr>
+                <!-- Ajoutez d'autres lignes ici -->
             </tbody>
         </table>
     </div>
