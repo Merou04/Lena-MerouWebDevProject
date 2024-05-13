@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Creation</title>
+   
+</head>
 <style>
     body {
     font-family: Arial;
@@ -40,7 +48,7 @@
             box-sizing: border-box;
             resize: none;
     }
-    .button {
+    button {
     background-color:#ffdb58; 
     color: #fff;
     border: none;
@@ -62,80 +70,60 @@
         box-sizing: border-box;
     }
 </style>
- <?php
-session_start();
-$host = "localhost";
- $dbuser = "root";
- $dbpass = "";
- $dbname = "CarTrack";
- $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
- if(isset($_GET["sbt"])){
-    $username= $_get[username];
-    $bday =$_get[birthdate];
-    $lic=$_get[licence];
-    switch ($lic) {
-        case '1':
-            $licence="A";
-            break;
-        case '2':
-            $licence="B";
-            break;
-            case '3':
-                $licence="C";break;
-        default:
-            # code...
-            break;
-    }
-    $tel=$_get[tel];
-    $descrip=$_get[description];
-    $mail=$_get[email];
-    $pass =$_GET[password];
-    $psw = password_hash($pass, PASSWORD_DEFAULT);
-    //$sql = "INSERT INTO driver values (23456,$username,$bday,$licence,$tel,$descrip,$mail,$psw)";
-   // insert in table avec les attributs...
-}
-if (mysqli_query($conn, $sql)) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-?>
-
- <html>
-    <head>
-        <title>Account Creation</title>
-    </head>
-    <body>
-        <div class="block">
-            <h2>Create a driver's account</h2>
-            <img src="C:/images" alt="Driver's picture" width="150">
+<body>
+    <div class="block">
+        <h2>Create a driver's account</h2>
+        <img src="C:/images" alt="Driver's picture" width="150">
+        <form action="#" method="post">
             <label>Username:</label>
             <input type="text" id="username" name="username" required>
             <label>Birth date:</label>
-            <input type="date" id="birthdate" name="birthdate">
+            <input type="date" id="birthdate" name="birthdate" required max="2003-01-01">
             <label>Licence:</label>
-                <select name="licence">
-                    <option value="0">Select the driving licence</option>
-                    <option value="1">A</option>
-                    <option value="2">B</option>
-                    <option value="3">C</option>
-                </select>
+            <select name="Licence" required>
+                <option value="0">Select the driving licence</option>
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+            </select>
             <label>Tel:</label>
-            <input type="tel" name="tel" placeholder="Num tel"/>
+            <input type="tel" id="tel" name="tel" placeholder="Num tel" required>
             <br>
             <label>Description of the driver:</label>
-            <textarea name="description"></textarea>
+            <textarea name="Description"></textarea>
             <br>
             <label>Email:</label>
             <input type="email" id="email" name="email" required>
             <label>Password:</label>
-            <input type="password" id="password" name="password" required>
-            <a href="Manage drivers.php" class="button" name="sbt">Creat account</a>
-        </div>
-    </body>
-</html>
+            <input type="password" id="password" name="password" minlength="6" required>
+            <button type="submit" name="submit">Create Account</button>
+        </form>
+    </div>
 
-<?php
-    mysqli_close($conn);
-?>
+    <?php
+    if(isset($_POST['submit'])) {
+        
+        $username = $_POST['username'];
+        $birthdate = $_POST['birthdate'];
+        $licence = $_POST['Licence'];
+        $tel = $_POST['tel'];
+        $description = $_POST['Description'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        
+        if (strlen($tel) !== 10) {
+            echo "<script>alert('Phone number must be 10 characters long');</script>";
+            exit(); // Arrête l'exécution du script PHP
+        }
+
+        if (strlen($password) < 6) {
+            echo "<script>alert('Password must be at least 6 characters long');</script>";
+            exit(); // Arrête l'exécution du script PHP
+        }
+
+    
+    }
+    ?>
+</body>
+</html>
