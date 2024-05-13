@@ -100,14 +100,14 @@
                     <td>$200</td>
                     <td class="button-container">
                         <?php
-                            // Actions des boutons
+                            
                             if(isset($_POST['toyota_accept'])) {
                                 echo "<script>alert('Report accepted, you have the admin permission');</script>";
                             } elseif(isset($_POST['toyota_decline'])) {
                                 echo "<script>alert('Cost declined');</script>";
                             }
                         ?>
-                        <!-- Formulaires pour gérer les actions -->
+                      
                         <form action="" method="post">
                             <button class="button accept" type="submit" name="toyota_accept">Accept</button>
                         </form>
@@ -116,7 +116,7 @@
                         </form>
                     </td>
                 </tr>
-                <!-- Ajoutez d'autres lignes ici -->
+              
             </tbody>
         </table>
     </div>
