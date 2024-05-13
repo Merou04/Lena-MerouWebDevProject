@@ -6,8 +6,7 @@ session_start();
  $dbpass = "";
  $dbname = "CarTrack";
  $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
- 
- // inserer le report dans la table report
+
  ?>
 
 <!DOCTYPE html>
