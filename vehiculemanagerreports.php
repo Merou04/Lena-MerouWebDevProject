@@ -94,31 +94,41 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Toyota Camry</td>
+                    <td>Toyota Corolla</td>
                     <td>123</td>
                     <td>Replaced brake pads and rotors due to wear and tear.</td>
                     <td>$200</td>
                     <td class="button-container">
-                        <?php
-                            
-                            if(isset($_POST['toyota_accept'])) {
-                                echo "<script>alert('Report accepted, you have the admin permission');</script>";
-                            } elseif(isset($_POST['toyota_decline'])) {
-                                echo "<script>alert('Cost declined');</script>";
-                            }
-                        ?>
-                      
-                        <form action="" method="post">
-                            <button class="button accept" type="submit" name="toyota_accept">Accept</button>
+                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                            <input type="hidden" name="action" value="accept">
+                            <input type="hidden" name="car_name" value="Toyota Corolla">
+                            <button type="submit" class="button accept">Accept</button>
                         </form>
-                        <form action="" method="post">
-                            <button class="button decline" type="submit" name="toyota_decline">Decline</button>
+                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                            <input type="hidden" name="action" value="decline">
+                            <input type="hidden" name="car_name" value="Toyota Corolla">
+                            <button type="submit" class="button decline">Decline</button>
                         </form>
                     </td>
                 </tr>
-              
+                <!-- Add more rows as needed -->
             </tbody>
         </table>
     </div>
 </body>
 </html>
+
+<?php
+// Simulated backend action based on form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
+    $action = $_POST['action'];
+    $car_name = $_POST['car_name'];
+
+    // Simulated backend action based on the action performed
+    if ($action === "accept") {
+        echo "<script>alert('Report for $car_name accepted.');</script>";
+    } elseif ($action === "decline") {
+        echo "<script>alert('Report for $car_name declined.');</script>";
+    }
+}
+?>
