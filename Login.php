@@ -55,7 +55,27 @@
     </style>
 </head>
 <body>
-    <form action="/submit-your-login-form" method="post">
+    <?php
+    // Vérification du formulaire après soumission
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Vérification du format de l'identifiant utilisateur
+        if (isset($_POST["userid"])) {
+            $userId = $_POST["userid"];
+            // Redirection en fonction du préfixe de l'identifiant utilisateur
+            if (substr($userId, 0, 1) === "1") {
+                header("Location: acceuilSA.php");
+                exit();
+            } elseif (substr($userId, 0, 1) === "2") {
+                header("Location: InterfaceCH.php");
+                exit();
+            } elseif (substr($userId, 0, 1) === "3") {
+                header("Location: car manager.php");
+                exit();
+            }
+        }
+    }
+    ?>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <h2>Login to CarTrack</h2>
         <div>
             <label for="userid">User ID:</label>
