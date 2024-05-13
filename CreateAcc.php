@@ -40,7 +40,7 @@
             box-sizing: border-box;
             resize: none;
     }
-    button {
+    .button {
     background-color:#ffdb58; 
     color: #fff;
     border: none;
@@ -62,8 +62,18 @@
         box-sizing: border-box;
     }
 </style>
+ <?php
+session_start();
+$host = "localhost";
+ $dbuser = "root";
+ $dbpass = "";
+ $dbname = "CarTrack";
+ $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
+ 
+// insert in table avec les attributs...
+?>
 
-<html>
+ <html>
     <head>
         <title>Account Creation</title>
     </head>
@@ -74,9 +84,9 @@
             <label>Username:</label>
             <input type="text" id="username" name="username" required>
             <label>Birth date:</label>
-            <input type="date" id="birthdate" name="birthdate" required>
+            <input type="date" id="birthdate" name="birthdate">
             <label>Licence:</label>
-                <select name="Licence">
+                <select name="licence">
                     <option value="0">Select the driving licence</option>
                     <option value="1">A</option>
                     <option value="2">B</option>
@@ -86,13 +96,17 @@
             <input type="tel" name="tel" placeholder="Num tel"/>
             <br>
             <label>Description of the driver:</label>
-            <textarea name="Description"></textarea>
+            <textarea name="description"></textarea>
             <br>
             <label>Email:</label>
             <input type="email" id="email" name="email" required>
             <label>Password:</label>
             <input type="password" id="password" name="password" required>
-            <button type="submit">Create Account</button>
+            <a href="Manage drivers.php" class="button" name="sbt">Creat account</a>
         </div>
     </body>
 </html>
+
+<?php
+    mysqli_close($conn);
+?>

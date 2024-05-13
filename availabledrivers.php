@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+ $host = "localhost";
+ $dbuser = "root";
+ $dbpass = "";
+ $dbname = "CarTrack";
+ $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
+ 
+ // recherche des conducteurs libres
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,18 +82,18 @@
         </thead>
         <tbody>
             <tr>
-                <td>karim</td>
-                <td>Douaa</td>
+                <td>John</td>
+                <td>Doe</td>
                 <td style="background-color: #2ecc71;">Available</td>
             </tr>
             <tr>
-                <td>Jebali</td>
-                <td>Sliman</td>
+                <td>Jane</td>
+                <td>Smith</td>
                 <td style="background-color: #e74c3c;">On Leave</td>
             </tr>
             <tr>
-                <td>Samia</td>
-                <td>Lylia</td>
+                <td>Sam</td>
+                <td>Lee</td>
                 <td style="background-color: #f39c12;">On Mission</td>
             </tr>
             <!-- Repeat more rows as needed -->
@@ -93,3 +105,7 @@
     </div>
 </body>
 </html>
+
+<?php
+    mysqli_close($conn);
+?>

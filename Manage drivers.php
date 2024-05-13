@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+ $host = "localhost";
+ $dbuser = "root";
+ $dbpass = "";
+ $dbname = "CarTrack";
+ $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
+ 
+ // display all drivers
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,18 +56,15 @@
         button:hover {
             background-color: #ccab42; 
         }
-        .button-container {
-            text-align: center;
-        }
-        .button {
-            text-align: center;
-            background-color:#ffdb58; 
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            width: 100%;
-        }
+        .button{
+        text-align: center;
+        background-color:#ffdb58; 
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        width: 100%;
+    }
     </style>
 </head>
 <body>
@@ -73,49 +81,51 @@
         </thead>
         <tbody>
             <tr>
-                <td>Mestapaha Dabzedine</td>
+                <td>John Doe</td>
                 <td>1980-04-25</td>
                 <td>Class A</td>
                 <td>Experienced truck driver with over 10 years on the road.</td>
                 <td>
-                    <button onclick="window.location.href = 'confirm delete.php';">Delete</button>
+                    <button>Delete</button>
                     <button>Update</button>
                 </td>
             </tr>
             <tr>
-                <td>Mernouz Zakaria</td>
+                <td>Jane Smith</td>
                 <td>1992-07-16</td>
                 <td>Class B</td>
                 <td>City bus driver with strong record of punctuality and safety.</td>
                 <td>
-                    <button onclick="window.location.href = 'confirm delete.php';">Delete</button>
+                    <button>Delete</button>
                     <button>Update</button>
                 </td>
             </tr>
             <tr>
-                <td>Fella Boufelfel</td>
+                <td>Sam Lee</td>
                 <td>1985-03-30</td>
                 <td>Class C</td>
                 <td>Long-haul specialist, skilled in navigation and efficient route planning.</td>
                 <td>
-                    <button onclick="window.location.href = 'confirm delete.php';">Delete</button>
+                    <button>Delete</button>
                     <button>Update</button>
                 </td>
             </tr>
             <tr>
-                <td>Connor Mcgregor</td>
+                <td>Alex Rivera</td>
                 <td>1975-11-11</td>
                 <td>Class D</td>
                 <td>Offers over 15 years of driving experience across multiple vehicle types.</td>
                 <td>
-                    <button onclick="window.location.href = 'confirm delete.php';">Delete</button>
+                    <button>Delete</button>
                     <button>Update</button>
                 </td>
             </tr>
         </tbody>
     </table>
-    <div class="button-container">
-        <a href="CreateAcc.php" class="button">Add New Driver</a> 
-    </div>
+    <a href="CreateAcc.php" class="button">Add New Driver</a> 
 </body>
 </html>
+
+<?php
+    mysqli_close($conn);
+?>

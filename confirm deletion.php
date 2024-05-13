@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+ $host = "localhost";
+ $dbuser = "root";
+ $dbpass = "";
+ $dbname = "CarTrack";
+ $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
+ 
+ // recherche du conducteur et supprimer
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,3 +86,7 @@
     </script>
 </body>
 </html>
+
+<?php
+    mysqli_close($conn);
+?>

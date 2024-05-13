@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+ $host = "localhost";
+ $dbuser = "root";
+ $dbpass = "";
+ $dbname = "CarTrack";
+ $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
+ 
+ // faire unr recherche et display de la table report
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -142,3 +154,7 @@
     </div>
 </body>
 </html>
+
+<?php
+    mysqli_close($conn);
+?>

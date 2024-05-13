@@ -23,7 +23,19 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-    </style>
+</style>
+
+<?php
+session_start();
+
+ $host = "localhost";
+ $dbuser = "root";
+ $dbpass = "";
+ $dbname = "CarTrack";
+ $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
+ // display toutes les missions
+ ?>
+
 <html>
     <head>
         <title>Missions Table</title>
@@ -41,28 +53,32 @@
                         <th>State</th>
                     </tr>        
                     <tr>
-                        <td>001</td>
+                        <td>00001</td>
                         <td>Algiers</td>
-                        <td>John Doe</td>
-                        <td>Toyota Camry</td>
-                        <td>In process</td>
+                        <td>Mestapha Dadzedine</td>
+                        <td>Ford Mustang</td>
+                        <td>in process</td>
                     </tr>
                     <tr>
-                        <td>002</td>
-                        <td>Al Achour</td>
-                        <td>Jane Doe</td>
-                        <td>Ford Focus</td>
-                        <td>Waiting...</td>
+                        <td>00002</td>
+                        <td>Cheraga</td>
+                        <td>Fella Boufelfel</td>
+                        <td>Audi A4</td>
+                        <td>Wainting...</td>
                     </tr>
                     <tr>
-                    <td>003</td>
-                    <td>Al Achour</td>
-                    <td>Jane Doe</td>
-                    <td>Ford Focus</td>
-                    <td>In process</td>
+                    <td>000003</td>
+                    <td>Draria</td>
+                    <td>Connor Macgregor</td>
+                    <td>Jeep Wrangler</td>
+                    <td>Done</td>
                     </tr>            
                 </table>
             </div>
         </div>
     </body>
 </html>
+
+<?php
+    mysqli_close($conn);
+?>

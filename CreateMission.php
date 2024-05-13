@@ -40,7 +40,26 @@
         border-radius: 5px;
         width: 100%;
     }
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
 </style>
+
+<?php
+ $host = "localhost";
+ $dbuser = "root";
+ $dbpass = "";
+ $dbname = "CarTrack";
+ $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
+ 
+ // insert dans la table mission avec les details de la mission
+ ?>
+
 <html>
     <head>
     <title>Mission</title>
@@ -52,19 +71,24 @@
             <input type="number" name="nbr" placeholder="Mission"/>
             <br>
         <Label>Type mission:</Label>
-            <input type="text" name="mission" placeholder="Mission"/>
+            <input type="text" name="type" placeholder="Mission"/>
             <br>
-        <label>Type of merchandise:</label>
-            <input type="text" name="merchandise" placeholder="Merchandise"/>
+        <label>Licence needed:</label>
+            <select name="Licence">
+                <option value="0">Select the driving licence</option>
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+            </select>
             <br>
         <Label>Location:</Label>
             <input type="text" name="location" placeholder="Delivery location"/>
             <br>
         <label>Date:</label>
-            <input type="date" name="date" placeholder="date"/>
+            <input type="date" name="dated" placeholder="date"/>
             <br>
         <label>Departure time:</label>
-            <input type="time" name="Start" placeholder="Start"/>
+            <input type="time" name="time" placeholder="Start"/>
             <br>
         <label>Choose driver:</label>
         <a href="availabledrivers.php" class="button">Driver</a>
@@ -76,3 +100,7 @@
         </div>
     </body>
 </html>
+
+<?php
+    mysqli_close($conn);
+?>
