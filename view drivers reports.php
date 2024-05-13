@@ -1,15 +1,3 @@
-<?php
-session_start();
-
- $host = "localhost";
- $dbuser = "root";
- $dbpass = "";
- $dbname = "CarTrack";
- $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
- 
- // faire unr recherche et display de la table report
- ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,56 +93,36 @@ session_start();
             </thead>
             <tbody>
                 <tr>
-                    <td>Samir Fattal </td>
+                    <td>Mili Melo</td>
                     <td>123</td>
-                    <td>Samir encountered a vehicle breakdown halfway through the mission.</td>
+                    <td>Melo encountered a vehicle breakdown halfway through the mission.</td>
                     <td class="button-container">
-                        <button class="button accept">Accept</button>
-                        <button class="button decline">Decline</button>
+                       
+                        <form action="" method="post">
+                            <input type="hidden" name="action" value="accept">
+                            <button class="button accept" type="submit">Accept</button>
+                        </form>
+                        <form action="" method="post">
+                            <input type="hidden" name="action" value="decline">
+                            <button class="button decline" type="submit">Decline</button>
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <td>Abdou Tair</td>
-                    <td>456</td>
-                    <td>Abdou faced adverse weather conditions which delayed the delivery.</td>
-                    <td class="button-container">
-                        <button class="button accept">Accept</button>
-                        <button class="button decline">Decline</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Dwane Zoubir</td>
-                    <td>789</td>
-                    <td>Dwane encountered road closures, resulting in a significant delay in completing the mission.</td>
-                    <td class="button-container">
-                        <button class="button accept">Accept</button>
-                        <button class="button decline">Decline</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Adem Nemrouchi</td>
-                    <td>246</td>
-                    <td>Adem's vehicle had a flat tire, causing a delay in reaching the destination.</td>
-                    <td class="button-container">
-                        <button class="button accept">Accept</button>
-                        <button class="button decline">Decline</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Fatima Lekhal</td>
-                    <td>135</td>
-                    <td>Fatima's GPS malfunctioned, leading to confusion and a longer route.</td>
-                    <td class="button-container">
-                        <button class="button accept">Accept</button>
-                        <button class="button decline">Decline</button>
-                    </td>
-                </tr>
+        
             </tbody>
         </table>
     </div>
+
+    <?php
+  
+    if(isset($_POST['action'])) {
+        $action = $_POST['action'];
+        if($action === "accept") {
+            echo "<script>alert('Report accepted, Stop mission, return back');</script>";
+        } elseif($action === "decline") {
+            echo "<script>alert('Report declined, carry on mission');</script>";
+        }
+    }
+    ?>
 </body>
 </html>
-
-<?php
-    mysqli_close($conn);
-?>
