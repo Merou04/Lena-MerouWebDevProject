@@ -102,5 +102,24 @@
 </html>
 
 <?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Récupère les données du formulaire
+    $mission_number = $_POST['nbr'];
+    $mission_type = $_POST['type'];
+    $licence_needed = $_POST['Licence'];
+    $location = $_POST['location'];
+    $date = $_POST['dated'];
+    $departure_time = $_POST['time'];
+    
+    // Insérer les données dans la base de données
+    $sql = "INSERT INTO mission (mission_number, mission_type, licence_needed, location, date, departure_time) 
+            VALUES ('$mission_number', '$mission_type', '$licence_needed', '$location', '$date', '$departure_time')";
+    
+    if (mysqli_query($conn, $sql)) {
+        echo "Mission created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+}
     mysqli_close($conn);
 ?>
