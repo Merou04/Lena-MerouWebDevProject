@@ -77,6 +77,17 @@
         }
     </style>
 </head>
+    <?php
+session_start();
+
+ $host = "localhost";
+ $dbuser = "root";
+ $dbpass = "";
+ $dbname = "CarTrack";
+ $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
+ 
+ // display directement apres envoie de l'admin
+ ?>
 <body>
     <div class="container">
         <h1>Mission Information</h1>
