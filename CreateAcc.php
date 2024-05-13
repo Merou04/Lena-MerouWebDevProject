@@ -114,12 +114,12 @@
         
         if (strlen($tel) !== 10) {
             echo "<script>alert('Phone number must be 10 characters long');</script>";
-            exit(); // Arrête l'exécution du script PHP
+            exit(); // Verification du numero de telephone
         }
 
         if (strlen($password) < 6) {
             echo "<script>alert('Password must be at least 6 characters long');</script>";
-            exit(); // Arrête l'exécution du script PHP
+            exit(); //verification du mot de passe 
         }
 
     
