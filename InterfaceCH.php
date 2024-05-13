@@ -74,6 +74,17 @@
         }
     </style>
 </head>
+    <?php
+session_start();
+
+ $host = "localhost";
+ $dbuser = "root";
+ $dbpass = "";
+ $dbname = "CarTrack";
+ $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
+ 
+ // recherche dans la bdd et display
+ ?>
 <body>
     <div class="container">
         <div class="profile-image">
