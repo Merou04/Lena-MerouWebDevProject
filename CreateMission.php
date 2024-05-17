@@ -29,6 +29,7 @@
         border: none;
         padding: 10px 20px;
         border-radius: 5px;
+        cursor: pointer;
         width: 100%;
     }
     .button{
@@ -68,13 +69,13 @@
         <div class="block">
         <h1>Create a mission:</h1>
         <label>Mission's number:</label>
-            <input type="number" name="nbr" placeholder="Mission"/>
+            <input type="number" name="mission_number" placeholder="Mission"/>
             <br>
         <Label>Type mission:</Label>
-            <input type="text" name="type" placeholder="Mission"/>
+            <input type="text" name="misson_type" placeholder="Mission"/>
             <br>
         <label>Licence needed:</label>
-            <select name="Licence">
+            <select name="licence_needed">
                 <option value="0">Select the driving licence</option>
                 <option value="1">A</option>
                 <option value="2">B</option>
@@ -82,13 +83,13 @@
             </select>
             <br>
         <Label>Location:</Label>
-            <input type="text" name="location" placeholder="Delivery location"/>
+            <input type="text" name="misson_location" placeholder="Delivery location" required/>
             <br>
         <label>Date:</label>
-            <input type="date" name="dated" placeholder="date"/>
+            <input type="date" name="mission_date" placeholder="date" required/>
             <br>
         <label>Departure time:</label>
-            <input type="time" name="time" placeholder="Start"/>
+            <input type="time" name="departure_time" placeholder="Start" required/>
             <br>
         <label>Choose driver:</label>
         <a href="availabledrivers.php" class="button">Driver</a>
@@ -96,24 +97,24 @@
         <label>Choose vehicle:</label>
         <a href="availiblecars.php" class="button">Vehicle</a> 
         <br><br>   
-        <button type="submit">Submit mission</button>
+        <button type="submit" name="submit">Submit mission</button>
         </div>
     </body>
 </html>
 
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_GET["submit"])) {
     // Récupère les données du formulaire
-    $mission_number = $_POST['nbr'];
-    $mission_type = $_POST['type'];
-    $licence_needed = $_POST['Licence'];
-    $location = $_POST['location'];
-    $date = $_POST['dated'];
-    $departure_time = $_POST['time'];
+    $mission_number = $_GET["mission_number"];
+    $mission_type = $_GET["mission_type"];
+    $licence_needed = $_GET["licence_needed"];
+    $location = $_GET["mission_location"];
+    $date = $_GET["mission_date"];
+    $departure_time = $_GET["departure_time"];
     
     // Insérer les données dans la base de données
-    $sql = "INSERT INTO mission (mission_number, mission_type, licence_needed, location, date, departure_time) 
-            VALUES ('$mission_number', '$mission_type', '$licence_needed', '$location', '$date', '$departure_time')";
+    $sql = "INSERT INTO mission (mission_number, mission_type, licence_needed, mission_location, mission_date, departure_time) 
+            VALUES ($mission_number,$mission_type,$licence_needed,$location,$date,$departure_time)";
     
     if (mysqli_query($conn, $sql)) {
         echo "Mission created successfully";

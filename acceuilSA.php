@@ -29,7 +29,7 @@
     <body>
         <div class="block" >
             <div style="text-align :center;">
-            <h1>What to do?</h1>
+            <h1>Hello admin, what would you like to do?</h1>
             <a href="manag.php" class="button">Manage mission</a>
             <br><br><br> 
             <a href="Manage drivers.php" class="button">Manage driver</a>
