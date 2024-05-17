@@ -33,6 +33,7 @@ session_start();
  $dbpass = "";
  $dbname = "CarTrack";
  $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
+ 
  // display toutes les missions
  ?>
 
@@ -44,35 +45,25 @@ session_start();
         <div class="block" >
             <h2>Missions</h2>
             <div class="scrollable">
-                <table width=100%>                
+                <table width=100%>  
+
                     <tr>
                         <th>Mission's number</th>
                         <th>Location</th>
                         <th>Driver</th>
                         <th>Vehicule</th>
                         <th>State</th>
-                    </tr>        
-                    <tr>
-                        <td>00001</td>
-                        <td>Algiers</td>
-                        <td>Mestapha Dadzedine</td>
-                        <td>Ford Mustang</td>
-                        <td>in process</td>
                     </tr>
+                <?php for($i =0;$i<5;$i++){ ?>       
+                    
                     <tr>
-                        <td>00002</td>
-                        <td>Cheraga</td>
-                        <td>Fella Boufelfel</td>
-                        <td>Audi A4</td>
-                        <td>Wainting...</td>
+                        <td><?php echo "hello";?></td>
+                        <td><?php echo "test";?></td>
+                        <td><?php echo "test";?></td>
+                        <td><?php echo "test";?></td>
+                        <td><?php echo "test";?></td>
                     </tr>
-                    <tr>
-                    <td>000003</td>
-                    <td>Draria</td>
-                    <td>Connor Macgregor</td>
-                    <td>Jeep Wrangler</td>
-                    <td>Done</td>
-                    </tr>            
+                    <?php } ?>     
                 </table>
             </div>
         </div>
