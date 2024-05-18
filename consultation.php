@@ -12,7 +12,7 @@
             background-color: #AAB7B8;
         }
         .scrollable {
-        max-height: 200px;
+        max-height: 420px;
         overflow-y: auto;
     }
     .block {
@@ -31,7 +31,7 @@ session_start();
  $host = "localhost";
  $dbuser = "root";
  $dbpass = "";
- $dbname = "CarTrack";
+ $dbname = "cartrack";
  $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
  
  // display toutes les missions
@@ -54,16 +54,18 @@ session_start();
                         <th>Vehicule</th>
                         <th>State</th>
                     </tr>
-                <?php for($i =0;$i<5;$i++){ ?>       
-                    
-                    <tr>
-                        <td><?php echo "hello";?></td>
-                        <td><?php echo "test";?></td>
-                        <td><?php echo "test";?></td>
-                        <td><?php echo "test";?></td>
-                        <td><?php echo "test";?></td>
-                    </tr>
-                    <?php } ?>     
+                    <?php $query = "SELECT idmission,locationM,username,nameV,stateM from mission m,vehicle v,driver d
+                    where m.iddriver=d.iddriver and m.idvehicule=v.idvehicule;";
+                        if ($result=mysqli_query($conn,$query)){
+                            while ($row=mysqli_fetch_row($result)){ ?>       
+                            <tr>
+                                <td><?php echo $row[0];?></td>
+                                <td><?php echo $row[1];?></td>
+                                <td><?php echo $row[2];?></td>
+                                <td><?php echo $row[3];?></td>
+                                <td><?php echo $row[4];?></td>
+                            </tr>
+                    <?php } mysqli_free_result($result) ;} ?>     
                 </table>
             </div>
         </div>

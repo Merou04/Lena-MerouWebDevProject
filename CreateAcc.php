@@ -34,12 +34,12 @@
     }
     textarea{
         width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            resize: none;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        resize: none;
     }
     button {
     background-color:#ffdb58; 
@@ -65,11 +65,11 @@
 </style>
 
 <?php
- session_start();
+ //session_start();
  $host = "localhost";
  $dbuser = "root";
  $dbpass = "";
- $dbname = "CarTrack";
+ $dbname = "cartrack";
  $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
  
  
@@ -90,7 +90,7 @@
                 <label>Birth date:</label>
                 <input type="date" id="birthdate" name="birthdate" required max="2003-01-01">
                 <label>Licence:</label>
-                <select name="Licence" required>
+                <select name="Licence" required >
                     <option value="0">Select the driving licence</option>
                     <option value="1">A</option>
                     <option value="2">B</option>
@@ -112,6 +112,9 @@
     </body>
 </html>
 <?php
+    $query=mysqli_prepare($conn,"INSERT INTO driver(username,birthdate,licence,tel,descrip,email,psw) 
+        VALUES (?,?,?,?,?,?,?)");
+    $query->bind_param("sssssss",$username,$birthdate,$licence,$tel,$description,$email,$pwd);
     if(isset($_POST['submit'])) {
         
         $username = $_POST["username"];
@@ -120,19 +123,16 @@
         $tel = $_POST["tel"];
         $description = $_POST["Description"];
         $email = $_POST["email"];
-        $psw=$_POST["password"];
-        $password = password_hash($pwd,PASSWORD_DEFAULT);
-
-        
+        $pwd=$_POST["password"];
+        //$password = password_hash($pwd,PASSWORD_DEFAULT);
         if (strlen($tel) !== 10) {
             echo "<script>alert('Phone number must be 10 characters long');</script>";
-            exit(); // Arrête l'exécution du script PHP
+            exit();
         }
-        if (strlen($psw) < 6) {
+        if (strlen($pwd) < 6) {
             echo "<script>alert('Password must be at least 6 characters long');</script>";
-            exit(); // Arrête l'exécution du script PHP
+            exit(); 
         }
-        $query=mysqli_prepare($conn,"INSERT INTO driver(username,birthdate,licence,tel,descrip,email,psw) VALUES ($username,$birthdate,$licence,$tel,$description,$email,$password)");
         $query->execute();
         echo "New record inserted successfully";
     }

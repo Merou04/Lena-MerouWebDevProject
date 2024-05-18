@@ -55,11 +55,11 @@
  $host = "localhost";
  $dbuser = "root";
  $dbpass = "";
- $dbname = "CarTrack";
- $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
- 
- // insert dans la table mission avec les details de la mission
- ?>
+ $dbname = "cartrack";
+ $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname); 
+
+
+?>
 
 <html>
     <head>
@@ -69,7 +69,7 @@
         <div class="block">
         <h1>Create a mission:</h1>
         <label>Mission's number:</label>
-            <input type="number" name="mission_number" placeholder="Mission"/>
+            <input type="number" name="mission_number" placeholder="Mission" />
             <br>
         <Label>Type mission:</Label>
             <input type="text" name="misson_type" placeholder="Mission"/>
@@ -103,24 +103,24 @@
 </html>
 
 <?php
-if (isset($_GET["submit"])) {
-    // Récupère les données du formulaire
-    $mission_number = $_GET["mission_number"];
-    $mission_type = $_GET["mission_type"];
-    $licence_needed = $_GET["licence_needed"];
-    $location = $_GET["mission_location"];
-    $date = $_GET["mission_date"];
-    $departure_time = $_GET["departure_time"];
+
+    $query=mysqli_prepare($conn,"INSERT INTO mission(missionNumber,typeM,licence,dated,timed,iddriver,idvehicule,stateM) 
+        VALUES (?,?,?,?,?,?,?,?)");
+    $query->bind_param("ssssssss",$mission_number,$mission_type,$licence_needed,$location,$date,$departure_time,$iddriver,$idvehicule);
+if(isset($_POST['submit']))  {
+    echo"BUG HEREEEEEE";
     
-    // Insérer les données dans la base de données
-    $sql = "INSERT INTO mission (mission_number, mission_type, licence_needed, mission_location, mission_date, departure_time) 
-            VALUES ($mission_number,$mission_type,$licence_needed,$location,$date,$departure_time)";
+    $mission_number = $_POST["mission_number"];
+    $mission_type = $_POST["mission_type"];
+    $licence_needed = $_POST["licence_needed"];
+    $location = $_POST["mission_location"];
+    $date = $_POST["mission_date"];
+    $departure_time = $_POST["departure_time"];
+    $iddriver;
+    $idvehicule;
     
-    if (mysqli_query($conn, $sql)) {
-        echo "Mission created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-    }
+    $query->execute();
+    echo "New account created";
 }
     mysqli_close($conn);
 ?>
