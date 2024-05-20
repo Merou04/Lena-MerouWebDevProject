@@ -1,140 +1,101 @@
-<style>
-
-    body {
-    font-family: Arial;
-    background-color:#172b4d;
-    }
-    .block {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    }
-    label {
-    display: block;
-    margin-bottom: 5px;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="date"],
-    input[type="tel"],
-    input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    }
-    textarea{
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-        resize: none;
-    }
-    button {
-    background-color:#ffdb58; 
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    }
-    img {
-    display: block;
-    margin: 0 auto 20px;
-    }
-    select {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-    }
-</style>
-
 <?php
- //session_start();
- $host = "localhost";
- $dbuser = "root";
- $dbpass = "";
- $dbname = "cartrack";
- $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
- 
- 
- ?>
+session_start();
 
+$host = "localhost";
+$dbuser = "root";
+$dbpass = "";
+$dbname = "CarTrack";
+$conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
 
-<html >
-    <head>
-            <title>Account Creation</title>
-    </head>
-    <body>
-        <div class="block">
-            <h2>Create a driver's account</h2>
-            <img src="C:/images" alt="Driver's picture" width="150">
-            <form action="#" method="post">
-                <label>Username:</label>
-                <input type="text" id="username" name="username" required>
-                <label>Birth date:</label>
-                <input type="date" id="birthdate" name="birthdate" required max="2003-01-01">
-                <label>Licence:</label>
-                <select name="Licence" required >
-                    <option value="0">Select the driving licence</option>
-                    <option value="1">A</option>
-                    <option value="2">B</option>
-                    <option value="3">C</option>
-                </select>
-                <label>Tel:</label>
-                <input type="tel" id="tel" name="tel" placeholder="Num tel" required>
-                <br>
-                <label>Description of the driver:</label>
-                <textarea name="Description"></textarea>
-                <br>
-                <label>Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label>Password:</label>
-                <input type="password" id="password" name="password" minlength="6" required>
-                <button type="submit" name="submit">Create Account</button>
-            </form>
-        </div>
-    </body>
-</html>
-<?php
-    $query=mysqli_prepare($conn,"INSERT INTO driver(username,birthdate,licence,tel,descrip,email,psw) 
-        VALUES (?,?,?,?,?,?,?)");
-    $query->bind_param("sssssss",$username,$birthdate,$licence,$tel,$description,$email,$pwd);
-    if(isset($_POST['submit'])) {
-        
-        $username = $_POST["username"];
-        $birthdate = $_POST["birthdate"];
-        $licence = $_POST["Licence"];
-        $tel = $_POST["tel"];
-        $description = $_POST["Description"];
-        $email = $_POST["email"];
-        $pwd=$_POST["password"];
-        //$password = password_hash($pwd,PASSWORD_DEFAULT);
-        if (strlen($tel) !== 10) {
-            echo "<script>alert('Phone number must be 10 characters long');</script>";
-            exit();
-        }
-        if (strlen($pwd) < 6) {
-            echo "<script>alert('Password must be at least 6 characters long');</script>";
-            exit(); 
-        }
-        $query->execute();
-        echo "New record inserted successfully";
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Check if the form is submitted
+if (isset($_POST['submit'])) {
+    $name = $_POST["name"];
+    $birthdate = $_POST["birthdate"];
+    $licenseNumber = $_POST["license_number"];
+    $status = $_POST["status"];
+    $userId = $_POST["user_id"];  // This should be dynamically assigned or selected, depending on your application context
+
+    // Prepare the SQL statement to prevent SQL injection
+    $stmt = $conn->prepare("INSERT INTO Drivers (user_id, name, license_number, status, birthday) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("issss", $userId, $name, $licenseNumber, $status, $birthdate);
+    if ($stmt->execute()) {
+        echo "<script>alert('New driver added successfully');</script>";
+    } else {
+        echo "<script>alert('Error adding driver: " . $stmt->error . "');</script>";
     }
-    mysqli_close($conn);
+    $stmt->close();
+}
+
+// Close the database connection
+mysqli_close($conn);
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Creation</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #172b4d;
+        }
+        .block {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #ffdb58;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="block">
+        <h2>Create a Driver's Account</h2>
+        <form action="#" method="post">
+            <label for="user_id">User ID:</label>
+            <input type="number" id="user_id" name="user_id" required>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="birthdate">Birth Date:</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+            <label for="license_number">License Number:</label>
+            <input type="text" id="license_number" name="license_number" required>
+            <label for="status">Status:</label>
+            <input type="text" id="status" name="status" required>
+            <button type="submit" name="submit">Create Account</button>
+        </form>
+    </div>
+</body>
+</html>
