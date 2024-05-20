@@ -93,42 +93,73 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Toyota Corolla</td>
-                    <td>123</td>
-                    <td>Replaced brake pads and rotors due to wear and tear.</td>
-                    <td>$200</td>
-                    <td class="button-container">
-                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                            <input type="hidden" name="action" value="accept">
-                            <input type="hidden" name="car_name" value="Toyota Corolla">
-                            <button type="submit" class="button accept">Accept</button>
-                        </form>
-                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                            <input type="hidden" name="action" value="decline">
-                            <input type="hidden" name="car_name" value="Toyota Corolla">
-                            <button type="submit" class="button decline">Decline</button>
-                        </form>
-                    </td>
-                </tr>
-                <!-- Add more rows as needed -->
+                <?php
+             
+                $conn = new mysqli("localhost", "root", "", "cartrack_db");
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+
+                $loggedInUserId = 31998; // Example logged-in user ID
+                $userRoleQuery = "SELECT role FROM users WHERE user_id = $loggedInUserId";
+                $userRoleResult = $conn->query($userRoleQuery);
+                $userRoleRow = $userRoleResult->fetch_assoc();
+                $userRole = $userRoleRow['role'];
+
+                if ($userRole === 'Car Manager') {
+                    // Fetch the reports for the Car Manager
+                    $reportsQuery = "SELECT v.make, v.model, r.report_id, r.content, r.report_date 
+                                     FROM reports r 
+                                     JOIN vehicles v ON r.vehicle_id = v.vehicle_id 
+                                     WHERE r.user_id = $loggedInUserId";
+                    $reportsResult = $conn->query($reportsQuery);
+
+                    if ($reportsResult->num_rows > 0) {
+                        while ($row = $reportsResult->fetch_assoc()) {
+                            echo "<tr>
+                                    <td>{$row['make']} {$row['model']}</td>
+                                    <td>{$row['report_id']}</td>
+                                    <td>{$row['content']}</td>
+                                    <td>{$row['report_date']}</td>
+                                    <td class='button-container'>
+                                        <form method='post' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>
+                                            <input type='hidden' name='action' value='accept'>
+                                            <input type='hidden' name='report_id' value='{$row['report_id']}'>
+                                            <button type='submit' class='button accept'>Accept</button>
+                                        </form>
+                                        <form method='post' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>
+                                            <input type='hidden' name='action' value='decline'>
+                                            <input type='hidden' name='report_id' value='{$row['report_id']}'>
+                                            <button type='submit' class='button decline'>Decline</button>
+                                        </form>
+                                    </td>
+                                  </tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='5'>No reports found.</td></tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='5'>You do not have access to this section.</td></tr>";
+                }
+
+                $conn->close();
+                ?>
             </tbody>
         </table>
     </div>
+
+    <?php
+   
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
+        $action = $_POST['action'];
+        $reportId = $_POST['report_id'];
+
+        if ($action === "accept") {
+            echo "<script>alert('Report ID $reportId accepted.');</script>";
+        } elseif ($action === "decline") {
+            echo "<script>alert('Report ID $reportId declined.');</script>";
+        }
+    }
+    ?>
 </body>
 </html>
-
-<?php
-// Simulated backend action based on form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
-    $action = $_POST['action'];
-    $car_name = $_POST['car_name'];
-
-    // Simulated backend action based on the action performed
-    if ($action === "accept") {
-        echo "<script>alert('Report for $car_name accepted.');</script>";
-    } elseif ($action === "decline") {
-        echo "<script>alert('Report for $car_name declined.');</script>";
-    }
-}
-?>
