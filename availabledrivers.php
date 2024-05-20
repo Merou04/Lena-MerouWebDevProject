@@ -10,13 +10,8 @@ session_start();
  // recherche des conducteurs libres
 
  ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Available Drivers</title>
-    <style>
+ 
+ <style>
         body {
             margin: 0;
             padding: 0;
@@ -66,43 +61,68 @@ session_start();
             font-size: 18px;
         }
 
-        .choose-button:hover {
-            background-color: #ccab42;
+        button {
+        background-color: #4caf50;
+        color: black;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
         }
-    </style>
+</style>
+<html>
+<head>
+    <title>Available Drivers</title>
+    
 </head>
 <body>
+    <form action="CreateMission.php" method="post">
     <table>
         <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Name</th>
                 <th>Availability</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td style="background-color: #2ecc71;">Available</td>
-            </tr>
-            <tr>
-                <td>Jane</td>
-                <td>Smith</td>
-                <td style="background-color: #e74c3c;">On Leave</td>
-            </tr>
-            <tr>
-                <td>Sam</td>
-                <td>Lee</td>
-                <td style="background-color: #f39c12;">On Mission</td>
-            </tr>
-            <!-- Repeat more rows as needed -->
+        <?php
+            $query = "SELECT driver_id, name, status FROM Drivers";
+            $result = $conn->query($query);
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $driver_id = $row['driver_id'];
+                    $name = $row['name'];
+                    $status = $row['status'];
+                    $availability_class = '';
+                    switch ($status) {
+                        case 'Available':
+                            $availability_class = 'available';
+                            break;
+                        case 'On Leave':
+                            $availability_class = 'on-leave';
+                            break;
+                        case 'On Mission':
+                            $availability_class = 'on-mission';
+                            break;
+                        default:
+                            $availability_class = '';
+                            break;
+                        }
+
+                        echo "<tr>";
+                        echo "<td>$name</td>";
+                        echo "<td class='$availability_class'>$status</td>";
+                        echo "<td><button type='submit' name='selected_driver_id' value='$driver_id'>Choose</button></td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='4'>No drivers available</td></tr>";
+                }
+                ?>
         </tbody>
     </table>
 
-    <div class="button-container">
-        <button class="choose-button">Choose Driver</button>
-    </div>
+</form>
 </body>
 </html>
 
