@@ -13,8 +13,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(45deg, #172b4d, #2c3e50); /* Navy blue gradients */
-            color: #fff; /* White text */
+            background: linear-gradient(45deg, #172b4d, #2c3e50); 
+            color: #fff; 
         }
 
         .container {
@@ -28,7 +28,7 @@
         }
 
         h2 {
-            color: #172b4d; /* Navy blue */
+            color: #172b4d; 
         }
 
         textarea {
@@ -38,12 +38,12 @@
             border-radius: 5px;
             border: 1px solid #ccc;
             box-sizing: border-box;
-            resize: vertical; /* permet le redimensionnement vertical de la zone de texte */
+            resize: vertical; 
         }
 
         input[type="submit"] {
-            background-color: #ffdb58; /* Mustard yellow */
-            color: #333; /* Dark gray text */
+            background-color: #ffdb58; 
+            color: #333; /
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -51,7 +51,7 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #ccab42; /* Darker mustard yellow on hover */
+            background-color: #ccab42; 
         }
     </style>
 </head>
@@ -59,7 +59,37 @@
     <div class="container">
         <h2>What problem are you encountering?</h2>
         <form action="ACCEPTMISSION.PHP" method="post">
-            <textarea name="problem" rows="8" placeholder="Describe the problem encountered here..." required></textarea>
+            <textarea name="problem" rows="8" placeholder="Describe the problem encountered here..." required><?php
+                
+                $servername = "127.0.0.1";
+                $username = "root";
+                $password = "Raouf120304";
+                $dbname = "cartrack_db";
+
+                
+                $conn = new mysqli($servername, $username, $password, $dbname);
+
+            
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+
+              
+                $sql = "SELECT content FROM reports WHERE report-id = 1"; 
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                
+                    while($row = $result->fetch_assoc()) {
+                        echo htmlspecialchars($row["content"]);
+                    }
+                } else {
+                    echo "No report found";
+                }
+
+                
+                $conn->close();
+            ?></textarea>
             <br>
             <input type="submit" value="Submit">
         </form>
