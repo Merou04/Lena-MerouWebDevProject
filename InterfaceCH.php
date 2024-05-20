@@ -14,9 +14,8 @@
             align-items: center;
             height: 100vh;
             background: linear-gradient(45deg, #172b4d, #2c3e50); 
-            color: #fff; /* White text */
+            color: #fff;
         }
-
         .container {
             display: flex;
             justify-content: center;
@@ -28,26 +27,22 @@
             max-width: 800px;
             width: 80%;
         }
-
         .profile-info {
             flex: 1;
             text-align: left;
             margin-left: 20px;
         }
-
         .profile-info h2 {
-            color: #172b4d; 
+            color: #172b4d;
             margin-top: 0;
         }
-
         .profile-info p {
             margin-bottom: 10px;
-            color: #555; 
+            color: #555;
         }
-
         .profile-info a.button {
-            background-color: #ffdb58; 
-            color: #333; 
+            background-color: #ffdb58;
+            color: #333;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -55,18 +50,15 @@
             margin-right: 10px;
             display: inline-block;
             margin-top: 20px;
-            text-decoration: none; 
+            text-decoration: none;
         }
-
         .profile-info a.button:hover {
-            background-color: #ccab42; 
+            background-color: #ccab42;
         }
-
         .profile-image {
             flex: 1;
             text-align: center;
         }
-
         .profile-image img {
             width: 300px;
             height: 300px;
@@ -75,60 +67,56 @@
     </style>
 </head>
 <body>
+    <?php
+    session_start();
+
+    
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: login.php");
+        exit();
+    }
+
+   
+    $host = "localhost";
+    $dbuser = "root";
+    $dbpass = "Raouf120304";
+    $dbname = "cartrack_db";
+    $conn = new mysqli($host, $dbuser, $dbpass, $dbname);
+
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+  
+    $user_id = $_SESSION['user_id'];
+
+ 
+    $sql = "SELECT d.name, d.license_type, d.status, d.birth_date, d.Description 
+            FROM drivers d 
+            JOIN users u ON d.user_id = u.user_id 
+            WHERE u.user_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $stmt->bind_result($name, $license_type, $status, $birth_date, $description);
+    $stmt->fetch();
+    $stmt->close();
+    $conn->close();
+    ?>
     <div class="container">
         <div class="profile-image">
-            <img src="C:\Users\Smadhi Katia\Pictures\Screenshots.jpg" alt="Driver's Photo"> <!-- Remplacez "C:\Users\Smadhi Katia\Pictures\Screenshots.jpg" par le chemin de votre image -->
+            <img src="path/to/your/image.jpg" alt="Driver's Photo"> 
         </div>
         <div class="profile-info">
-            <h2>Driver's Name: SAID SAIDOUN</h2>
-            <p>Date of Birth: DD/MM/YYYY</p>
-            <p>License Type: C</p>
-            <p>Driver's Description</p>
+            //pour afficher sur l'interface a partir de la bdd
+            <h2>Driver's Name: <?php echo htmlspecialchars($name); ?></h2>
+            <p>Date of Birth: <?php echo htmlspecialchars($birth_date); ?></p>
+            <p>License Type: <?php echo htmlspecialchars($license_type); ?></p>
+            <p>Status: <?php echo htmlspecialchars($status); ?></p>
+            <p>Description: <?php echo htmlspecialchars($description); ?></p>
             <a href="InterfaceMS.php" class="button">View Mission</a>
         </div>
     </div>
-
-    <?php
-    // Connexion à la base de données
-    $host = "localhost";
-    $dbuser = "root";
-    $dbpass = "";
-    $dbname = "CarTrack";
-    $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
-
-    // Vérifier la connexion
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    // Requête SQL pour récupérer les informations de l'utilisateur
-    $sql = "SELECT * FROM drivers WHERE id = 1"; // Vous devez remplacer "1" par l'ID de l'utilisateur dont vous voulez afficher les informations
-
-    // Exécution de la requête
-    $result = mysqli_query($conn, $sql);
-
-    // Vérification s'il y a des résultats
-    if (mysqli_num_rows($result) > 0) {
-        // Récupération des données de l'utilisateur
-        $row = mysqli_fetch_assoc($result);
-        $driverName = $row["driver_name"];
-        $dateOfBirth = $row["date_of_birth"];
-        $licenseType = $row["license_type"];
-        $description = $row["description"];
-
-        // Affichage des données de l'utilisateur
-        echo "<script>
-                document.querySelector('.profile-info h2').innerText = 'Driver\'s Name: $driverName';
-                document.querySelectorAll('.profile-info p')[0].innerText = 'Date of Birth: $dateOfBirth';
-                document.querySelectorAll('.profile-info p')[1].innerText = 'License Type: $licenseType';
-                document.querySelectorAll('.profile-info p')[2].innerText = 'Driver\'s Description: $description';
-              </script>";
-    } else {
-        echo "0 results";
-    }
-
-    // Fermeture de la connexion
-    mysqli_close($conn);
-    ?>
 </body>
 </html>
