@@ -25,13 +25,13 @@
         }
         h2 {
             text-align: center;
-            color: #333; /* Dark blue */
+            color: #333; 
             margin-bottom: 20px;
         }
         label {
             display: block;
             margin-bottom: 5px;
-            color: #333; /* Dark blue */
+            color: #333; 
         }
         input[type="text"], input[type="password"] {
             width: calc(100% - 20px);
@@ -52,28 +52,72 @@
         input[type="submit"]:hover {
             background-color: #ccab42; 
         }
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <?php
-    // Vérification du formulaire après soumission
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Vérification du format de l'identifiant utilisateur
-        if (isset($_POST["userid"])) {
-            $userId = $_POST["userid"];
-            // Redirection en fonction du préfixe de l'identifiant utilisateur
-            if (substr($userId, 0, 1) === "1") {
-                header("Location: acceuilSA.php");
-                exit();
-            } elseif (substr($userId, 0, 1) === "2") {
-                header("Location: InterfaceCH.php");
-                exit();
-            } elseif (substr($userId, 0, 1) === "3") {
-                header("Location: car manager.php");
-                exit();
-            }
-        }
+    session_start();
+
+    
+    $servername = "localhost";
+    $username = "root";
+    $password = "Raouf120304"; 
+    $dbname = "cartrack_db";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
+
+    $passwordError = "";
+
+    
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+       
+        $userId = $_POST["userid"];
+        $userPassword = $_POST["password"];
+
+        $stmt = $conn->prepare("SELECT role, password FROM users WHERE user_id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows > 0) {
+            $stmt->bind_result($role, $hashedPassword);
+            $stmt->fetch();
+
+            if ($userPassword == $hashedPassword) {  
+                
+                $_SESSION['user_id'] = $userId;
+
+                
+                if ($role === "Driver") {
+                    header("Location: InterfaceCH.php");
+                    exit();
+                } elseif ($role === "Admin") {
+                    header("Location: acceuilSA.php");
+                    exit();
+                } elseif ($role === "Car Manager") {
+                    header("Location: car manager.php");
+                    exit();
+                }
+            } else {
+                $passwordError = "Invalid User ID or Password.";
+            }
+        } else {
+            $passwordError = "Invalid User ID or Password.";
+        }
+        $stmt->close();
+    }
+    $conn->close();
     ?>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <h2>Login to CarTrack</h2>
@@ -83,7 +127,10 @@
         </div>
         <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required placeholder="Enter your Password">
+            <input type="password" id="password" name="password" required placeholder="Enter your Password" minlength="6" maxlength="15">
+            <?php if ($passwordError): ?>
+                <div class="error"><?php echo $passwordError; ?></div>
+            <?php endif; ?>
         </div>
         <div>
             <input type="submit" value="Login">
