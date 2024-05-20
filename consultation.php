@@ -45,15 +45,12 @@ session_start();
               WHERE Missions.mission_id = ?
               LIMIT 1";
 
-    // Prepare and execute the query
     $statement = $db_connection->prepare($query);
     $statement->bind_param("i", $mission_id);
     $statement->execute();
     $result = $statement->get_result();
 
-    // Check if mission exists
-    if ($result->num_rows > 0) {
-        // Fetch mission details
+    if ($result->num_rows > 0) {  
         $row = $result->fetch_assoc();
         $mission_number = $row['mission_id'];
         $mission_title = $row['title'];
@@ -63,7 +60,6 @@ session_start();
         $vehicle_model = $row['model'];
         $license_plate = $row['license_plate'];
 
-        // Display mission details
         echo "<tr>";
         echo "<td>$mission_number</td>";
         echo "<td>$location</td>";
@@ -104,7 +100,7 @@ session_start();
                             }
                             mysqli_free_result($result);
                         } 
-                    ?>        
+                    ?>
                 </table>
             </div>
         </div>
