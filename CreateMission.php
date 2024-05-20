@@ -58,7 +58,6 @@
  $dbname = "cartrack";
  $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname); 
 
-
 ?>
 
 <html>
@@ -102,25 +101,34 @@
     </body>
 </html>
 
-<?php
 
-    $query=mysqli_prepare($conn,"INSERT INTO mission(missionNumber,typeM,licence,dated,timed,iddriver,idvehicule,stateM) 
-        VALUES (?,?,?,?,?,?,?,?)");
-    $query->bind_param("ssssssss",$mission_number,$mission_type,$licence_needed,$location,$date,$departure_time,$iddriver,$idvehicule);
-if(isset($_POST['submit']))  {
-    echo"BUG HEREEEEEE";
-    
-    $mission_number = $_POST["mission_number"];
-    $mission_type = $_POST["mission_type"];
-    $licence_needed = $_POST["licence_needed"];
-    $location = $_POST["mission_location"];
-    $date = $_POST["mission_date"];
-    $departure_time = $_POST["departure_time"];
-    $iddriver;
-    $idvehicule;
-    
-    $query->execute();
-    echo "New account created";
-}
+<?php
+    if(isset($_POST['submit']))  {
+        $mission_number = $_POST["mission_number"];
+        $mission_type = $_POST["mission_type"];
+        $licence_needed = $_POST["licence_needed"];
+        $location = $_POST["mission_location"];
+        $date = $_POST["mission_date"];
+        $departure_time = $_POST["departure_time"];
+        $iddriver = $_POST["driver_id"]; 
+        $idvehicle = $_POST["vehicle_id"]; 
+        
+        
+        $insert_mission_query = "INSERT INTO Missions (title, description, start_date, end_date, status) VALUES (?, ?, ?, ?, ?)";
+        $stmt_mission = mysqli_prepare($conn, $insert_mission_query);
+        $status = "Pending"; 
+        mysqli_stmt_bind_param($stmt_mission, "sssss", $mission_type, $location, $date, $date, $status);
+        mysqli_stmt_execute($stmt_mission);
+        $mission_id = mysqli_insert_id($conn); 
+
+        
+        $insert_assignment_query = "INSERT INTO Mission_Assignments (mission_id, vehicle_id, driver_id, assigned_date) VALUES (?, ?, ?, ?)";
+        $stmt_assignment = mysqli_prepare($conn, $insert_assignment_query);
+        $assigned_date = date("Y-m-d");
+        mysqli_stmt_bind_param($stmt_assignment, "iiis", $mission_id, $idvehicle, $iddriver, $assigned_date);
+        mysqli_stmt_execute($stmt_assignment);
+
+        echo "New mission created successfully";
+    }
     mysqli_close($conn);
 ?>

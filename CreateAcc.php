@@ -1,101 +1,158 @@
-<?php
-session_start();
+<style>
 
-$host = "localhost";
-$dbuser = "root";
-$dbpass = "";
-$dbname = "CarTrack";
-$conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
-
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-// Check if the form is submitted
-if (isset($_POST['submit'])) {
-    $name = $_POST["name"];
-    $birthdate = $_POST["birthdate"];
-    $licenseNumber = $_POST["license_number"];
-    $status = $_POST["status"];
-    $userId = $_POST["user_id"];  // This should be dynamically assigned or selected, depending on your application context
-
-    // Prepare the SQL statement to prevent SQL injection
-    $stmt = $conn->prepare("INSERT INTO Drivers (user_id, name, license_number, status, birthday) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("issss", $userId, $name, $licenseNumber, $status, $birthdate);
-    if ($stmt->execute()) {
-        echo "<script>alert('New driver added successfully');</script>";
-    } else {
-        echo "<script>alert('Error adding driver: " . $stmt->error . "');</script>";
+    body {
+    font-family: Arial;
+    background-color:#172b4d;
     }
-    $stmt->close();
-}
+    .block {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    }
+    label {
+    display: block;
+    margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    input[type="tel"],
+    input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    }
+    textarea{
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        resize: none;
+    }
+    button {
+    background-color:#ffdb58; 
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    }
+    img {
+    display: block;
+    margin: 0 auto 20px;
+    }
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+</style>
 
-// Close the database connection
-mysqli_close($conn);
-?>
+<?php
+ //session_start();
+ $host = "localhost";
+ $dbuser = "root";
+ $dbpass = "";
+ $dbname = "cartrack";
+ $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
+ 
+ 
+ ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Creation</title>
-    <style>
-        body {
-            font-family: Arial;
-            background-color: #172b4d;
-        }
-        .block {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #ffdb58;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-    <div class="block">
-        <h2>Create a Driver's Account</h2>
-        <form action="#" method="post">
-            <label for="user_id">User ID:</label>
-            <input type="number" id="user_id" name="user_id" required>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="birthdate">Birth Date:</label>
-            <input type="date" id="birthdate" name="birthdate" required>
-            <label for="license_number">License Number:</label>
-            <input type="text" id="license_number" name="license_number" required>
-            <label for="status">Status:</label>
-            <input type="text" id="status" name="status" required>
-            <button type="submit" name="submit">Create Account</button>
-        </form>
-    </div>
-</body>
+
+<html >
+    <head>
+            <title>Account Creation</title>
+    </head>
+    <body>
+        <div class="block">
+            <h2>Create a driver's account</h2>
+            <form>
+                <label>Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label>Password:</label>
+                <input type="password" id="password" name="password" minlength="6" required>
+                
+                <label>Licence:</label>
+                <select name="licence">
+                    <option value="0">Select the driving licence</option>
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                </select>
+                <label>Status:</label>
+                <select name="status" required>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+                <label>Birth date:</label>
+                <input type="date" id="birthdate" name="birthdate" required max="2003-01-01">
+                <label>Tel:</label>
+                <input type="tel" id="tel" name="tel" placeholder="Num tel" required>
+                <label>Description of the driver:</label>
+                <textarea name="Description"></textarea>
+                <input type="hidden" id="role" name="role" value="Driver">
+                <button type="submit" name="submit">Create Account</button>
+            </form>
+        </div>
+
+    </body>
 </html>
+
+<?php
+        
+    if(isset($_POST['submit'])){
+            $tel=$_POST['tel'];
+            $psw=$_POST['password'];
+            if (strlen($tel) !== 10) {
+                echo "<script>alert('Phone number must be 10 characters long');</script>";
+                exit();
+            }
+            if (strlen($psw) < 6) {
+                echo "<script>alert('Password must be at least 6 characters long');</script>";
+                exit(); 
+            }
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $role = $_POST['role'];
+            $name = $_POST['name'];
+            $license_number = $_POST['license_number'];
+            $status = $_POST['status'];
+            $email = $_POST['email'];
+            $birthdate = $_POST['birthdate'];
+            $tel = $_POST['tel'];
+            $description = $_POST['Description'];
+
+            $sql_user = "INSERT INTO Users (username, password, role) VALUES ('$username', '$password', '$role')";
+            if ($conn->query($sql_user) === TRUE) {
+                $user_id = $conn->insert_id; 
+            } else {
+                echo "Error: " . $sql_user . "<br>" . $conn->error;
+            }
+
+            $sql_driver = "INSERT INTO Drivers (user_id, name, license_number, status) VALUES ('$user_id', '$name', '$license_number', '$status')";
+            if ($conn->query($sql_driver) === TRUE) {
+                echo "New record created successfully";
+            } else {
+                echo "Error: " . $sql_driver . "<br>" . $conn->error;
+        }
+    }
+    
+    mysqli_close($conn);
+?>
