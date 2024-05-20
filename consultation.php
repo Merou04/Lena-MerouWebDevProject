@@ -34,8 +34,50 @@ session_start();
  $dbname = "cartrack";
  $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
  
- // display toutes les missions
- ?>
+ // fonction display toutes les missions
+ function displayMissionDetails($mission_id, $db_connection) {
+    
+    $query = "SELECT Missions.mission_id, Missions.title, Missions.location, Drivers.name AS driver_name, Vehicles.make, Vehicles.model, Vehicles.license_plate
+              FROM Missions
+              INNER JOIN Mission_Assignments ON Missions.mission_id = Mission_Assignments.mission_id
+              INNER JOIN Drivers ON Mission_Assignments.driver_id = Drivers.driver_id
+              INNER JOIN Vehicles ON Mission_Assignments.vehicle_id = Vehicles.vehicle_id
+              WHERE Missions.mission_id = ?
+              LIMIT 1";
+
+    // Prepare and execute the query
+    $statement = $db_connection->prepare($query);
+    $statement->bind_param("i", $mission_id);
+    $statement->execute();
+    $result = $statement->get_result();
+
+    // Check if mission exists
+    if ($result->num_rows > 0) {
+        // Fetch mission details
+        $row = $result->fetch_assoc();
+        $mission_number = $row['mission_id'];
+        $mission_title = $row['title'];
+        $location = $row['location'];
+        $driver_name = $row['driver_name'];
+        $vehicle_make = $row['make'];
+        $vehicle_model = $row['model'];
+        $license_plate = $row['license_plate'];
+
+        // Display mission details
+        echo "<tr>";
+        echo "<td>$mission_number</td>";
+        echo "<td>$location</td>";
+        echo "<td>$driver_name</td>";
+        echo "<td>$vehicle_make $vehicle_model (License Plate: $license_plate)</td>";
+        echo "<td>State</td>";
+        echo "</tr>";
+    } else {
+        echo "Mission not found.";
+    }  
+    $statement->close();
+}
+
+?>
 
 <html>
     <head>
@@ -54,18 +96,15 @@ session_start();
                         <th>Vehicule</th>
                         <th>State</th>
                     </tr>
-                    <?php $query = "SELECT idmission,locationM,username,nameV,stateM from mission m,vehicle v,driver d
-                    where m.iddriver=d.iddriver and m.idvehicule=v.idvehicule;";
-                        if ($result=mysqli_query($conn,$query)){
-                            while ($row=mysqli_fetch_row($result)){ ?>       
-                            <tr>
-                                <td><?php echo $row[0];?></td>
-                                <td><?php echo $row[1];?></td>
-                                <td><?php echo $row[2];?></td>
-                                <td><?php echo $row[3];?></td>
-                                <td><?php echo $row[4];?></td>
-                            </tr>
-                    <?php } mysqli_free_result($result) ;} ?>     
+                    <?php 
+                        $query = "SELECT mission_id FROM Missions";
+                        if ($result = mysqli_query($conn, $query)) {
+                            while ($row = mysqli_fetch_row($result)) {
+                                displayMissionDetails($row[0], $conn);
+                            }
+                            mysqli_free_result($result);
+                        } 
+                    ?>        
                 </table>
             </div>
         </div>
