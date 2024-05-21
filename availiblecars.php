@@ -60,16 +60,49 @@ session_start();
         }
 
         button {
-            background-color: #4caf50;
+            background-color: #ffdb58;
             color: white;
             padding: 8px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .logout-button:hover {
+            background-color: #cc0000;
+        }
+
+        .back-button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: #0000FF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .back-button:hover {
+            background-color: #0000cc;
+        }
+
     </style>
 </head>
 <body>
+<a href="Welcome.php" class="logout-button">Se déconnecter</a>
 <div class="container">
     <h1>List of Available Vehicles</h1>
     <table>
@@ -84,8 +117,7 @@ session_start();
         </thead>
         <tbody>
         <?php
-        // Fetching available vehicles
-        $sql = "SELECT name, model, year, license_plate FROM Vehicles WHERE status = 'available'";
+        $sql = "SELECT name, model, year, license_plate, vehicle_id FROM Vehicles WHERE status = 'available'";
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -95,16 +127,26 @@ session_start();
                 echo "<td>" . $row['model'] . "</td>";
                 echo "<td>" . $row['year'] . "</td>";
                 echo "<td>" . $row['license_plate'] . "</td>";
-                echo "<td><button>Select</button></td>";
+                echo "<td>";
+                ?>
+                <form action="createmission.php" method="post">
+                    <input type="hidden" name="vehicle_id" value="<?php echo $row['vehicle_id']; ?>">
+                    <button type="submit">Select</button>
+                </form>
+                <?php
+                echo "</td>";
                 echo "</tr>";
             }
         } else {
             echo "<tr><td colspan='5'>No available vehicles found</td></tr>";
         }
         ?>
+
         </tbody>
     </table>
 </div>
+<a href="CreateMission.php" class="back-button">Back</a>
+
 </body>
 </html>
 
