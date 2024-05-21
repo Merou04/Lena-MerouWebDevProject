@@ -4,7 +4,7 @@ session_start();
  $host = "localhost";
  $dbuser = "root";
  $dbpass = "";
- $dbname = "CarTrack";
+ $dbname = "cartrack_db";
  $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
 
 
