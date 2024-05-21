@@ -23,6 +23,37 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+    .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .logout-button:hover {
+            background-color: #cc0000;
+        }
+        .back-button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: #0000FF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .back-button:hover {
+            background-color: #0000cc;
+        }
+
 </style>
 
 <?php
@@ -37,7 +68,7 @@ session_start();
  // fonction display toutes les missions
  function displayMissionDetails($mission_id, $db_connection) {
     
-    $query = "SELECT Missions.mission_id, Missions.title, Missions.location, Drivers.name AS driver_name, Vehicles.make, Vehicles.model, Vehicles.license_plate
+    $query = "SELECT Missions.mission_id, Missions.title, Missions.DeliveryLocation, Drivers.name AS driver_name, Vehicles.name, Vehicles.model, Vehicles.license_plate
               FROM Missions
               INNER JOIN Mission_Assignments ON Missions.mission_id = Mission_Assignments.mission_id
               INNER JOIN Drivers ON Mission_Assignments.driver_id = Drivers.driver_id
@@ -54,9 +85,9 @@ session_start();
         $row = $result->fetch_assoc();
         $mission_number = $row['mission_id'];
         $mission_title = $row['title'];
-        $location = $row['location'];
+        $location = $row['DeliveryLocation'];
         $driver_name = $row['driver_name'];
-        $vehicle_make = $row['make'];
+        $vehicle_make = $row['name'];
         $vehicle_model = $row['model'];
         $license_plate = $row['license_plate'];
 
@@ -80,6 +111,8 @@ session_start();
         <title>Missions Table</title>
     </head>
     <body>
+    <a href="Welcome.php" class="logout-button">Se déconnecter</a>
+
         <div class="block" >
             <h2>Missions</h2>
             <div class="scrollable">
@@ -104,6 +137,7 @@ session_start();
                 </table>
             </div>
         </div>
+        <a href="acceuilSA.php" class="back-button">Back</a>
     </body>
 </html>
 
