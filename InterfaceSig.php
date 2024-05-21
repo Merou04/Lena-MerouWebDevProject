@@ -43,7 +43,7 @@
 
         input[type="submit"] {
             background-color: #ffdb58; 
-            color: #333; /
+            color: #333; 
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -61,33 +61,53 @@
         <form action="ACCEPTMISSION.PHP" method="post">
             <textarea name="problem" rows="8" placeholder="Describe the problem encountered here..." required><?php
                 
+                session_start();
+                if (!isset($_SESSION['user_id'])) {
+                    header("Location: login.php");
+                    exit();
+                }
+
                 $servername = "127.0.0.1";
                 $username = "root";
                 $password = "Raouf120304";
                 $dbname = "cartrack_db";
+                $user_id = $_SESSION['user_id'];
 
-                
                 $conn = new mysqli($servername, $username, $password, $dbname);
 
-            
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 }
 
-              
-                $sql = "SELECT content FROM reports WHERE report-id = 1"; 
-                $result = $conn->query($sql);
+                $role_sql = "SELECT role FROM users WHERE user_id = $user_id";
+                $role_result = $conn->query($role_sql);
 
-                if ($result->num_rows > 0) {
-                
-                    while($row = $result->fetch_assoc()) {
-                        echo htmlspecialchars($row["content"]);
+                if ($role_result->num_rows > 0) {
+                    $role_row = $role_result->fetch_assoc();
+                    $role = $role_row['role'];
+
+                    if ($role == 'Car Manager') {
+                        $report_sql = "SELECT content FROM reports WHERE user_id = $user_id LIMIT 1";
+                    } elseif ($role == 'Driver') {
+                        $report_sql = "SELECT content FROM reports WHERE user_id = $user_id LIMIT 1";
+                    } else {
+                        echo "No report found for this role.";
+                        exit();
+                    }
+
+                    $report_result = $conn->query($report_sql);
+
+                    if ($report_result->num_rows > 0) {
+                        while($row = $report_result->fetch_assoc()) {
+                            echo htmlspecialchars($row["content"]);
+                        }
+                    } else {
+                        echo "No report found";
                     }
                 } else {
-                    echo "No report found";
+                    echo "No role found for this user.";
                 }
 
-                
                 $conn->close();
             ?></textarea>
             <br>
