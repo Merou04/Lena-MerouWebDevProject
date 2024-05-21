@@ -55,7 +55,7 @@
  $host = "localhost";
  $dbuser = "root";
  $dbpass = "";
- $dbname = "cartrack";
+ $dbname = "cartrack_db";
  $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname); 
 
 ?>
@@ -67,9 +67,7 @@
     <body>
         <div class="block">
         <h1>Create a mission:</h1>
-        <label>Mission's number:</label>
-            <input type="number" name="mission_number" placeholder="Mission" />
-            <br>
+        
         <Label>Type mission:</Label>
             <input type="text" name="misson_type" placeholder="Mission"/>
             <br>
@@ -87,9 +85,7 @@
         <label>Date:</label>
             <input type="date" name="mission_date" placeholder="date" required/>
             <br>
-        <label>Departure time:</label>
-            <input type="time" name="departure_time" placeholder="Start" required/>
-            <br>
+        
         <label>Choose driver:</label>
         <a href="availabledrivers.php" class="button">Driver</a>
         <br><br><br>
@@ -97,6 +93,8 @@
         <a href="availiblecars.php" class="button">Vehicle</a> 
         <br><br>   
         <button type="submit" name="submit">Submit mission</button>
+        <br><br>
+        <a href="acceuilSA.php" class="button">Cancel</a>
         </div>
     </body>
 </html>
@@ -104,16 +102,23 @@
 
 <?php
     if(isset($_POST['submit']))  {
-        $mission_number = $_POST["mission_number"];
         $mission_type = $_POST["mission_type"];
         $licence_needed = $_POST["licence_needed"];
         $location = $_POST["mission_location"];
         $date = $_POST["mission_date"];
-        $departure_time = $_POST["departure_time"];
-        $iddriver = $_POST["driver_id"]; 
-        $idvehicle = $_POST["vehicle_id"]; 
-        
-        
+        $departure_time = $_POST["departure_time"]; 
+        if(isset($_POST['selected_driver_id'])) {
+        $driver_id = $_POST['selected_driver_id'];
+        }else {
+            echo "Error: Driver ID not provided.";
+            exit;
+        }
+        if(isset($_POST['vehicle_id'])) {
+            $vehicle_id = $_POST['vehicle_id'];
+        } else {
+            echo "Error: Vehicle ID not provided.";
+            exit;
+        }
         $insert_mission_query = "INSERT INTO Missions (title, description, start_date, end_date, status) VALUES (?, ?, ?, ?, ?)";
         $stmt_mission = mysqli_prepare($conn, $insert_mission_query);
         $status = "Pending"; 
@@ -125,10 +130,11 @@
         $insert_assignment_query = "INSERT INTO Mission_Assignments (mission_id, vehicle_id, driver_id, assigned_date) VALUES (?, ?, ?, ?)";
         $stmt_assignment = mysqli_prepare($conn, $insert_assignment_query);
         $assigned_date = date("Y-m-d");
-        mysqli_stmt_bind_param($stmt_assignment, "iiis", $mission_id, $idvehicle, $iddriver, $assigned_date);
+        mysqli_stmt_bind_param($stmt_assignment, "iiis", $mission_id, $vehicle_id, $driver_id, $assigned_date);
         mysqli_stmt_execute($stmt_assignment);
 
         echo "New mission created successfully";
     }
+    
     mysqli_close($conn);
 ?>
