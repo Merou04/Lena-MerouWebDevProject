@@ -88,78 +88,64 @@
                     <th>Car Name</th>
                     <th>Car Number</th>
                     <th>Report</th>
-                    <th>Additional Fees</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-             
-                $conn = new mysqli("localhost", "root", "", "cartrack_db");
+                $servername = "localhost";
+                $username = "root";
+                $password = "Raouf120304";
+                $dbname = "cartrack_db";
+
+                
+                $conn = new mysqli($servername, $username, $password, $dbname);
+
+                
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 }
 
-                $loggedInUserId = 31998; // Example logged-in user ID
-                $userRoleQuery = "SELECT role FROM users WHERE user_id = $loggedInUserId";
-                $userRoleResult = $conn->query($userRoleQuery);
-                $userRoleRow = $userRoleResult->fetch_assoc();
-                $userRole = $userRoleRow['role'];
+                
+                $sql = "SELECT r.*, v.name AS vehicle_name, v.license_plate AS vehicle_number
+                        FROM reports r
+                        JOIN users u ON r.user_id = u.user_id
+                        JOIN vehicles v ON r.vehicle_id = v.vehicle_id
+                        WHERE u.role = 'Car Manager'";
+                $result = $conn->query($sql);
 
-                if ($userRole === 'Car Manager') {
-                    // Fetch the reports for the Car Manager
-                    $reportsQuery = "SELECT v.make, v.model, r.report_id, r.content, r.report_date 
-                                     FROM reports r 
-                                     JOIN vehicles v ON r.vehicle_id = v.vehicle_id 
-                                     WHERE r.user_id = $loggedInUserId";
-                    $reportsResult = $conn->query($reportsQuery);
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($row['vehicle_name']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['vehicle_number']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['content']) . "</td>";
+                        echo "<td class='button-container'>
+                                <form action='' method='post'>
+                                    <button class='button accept' type='submit' name='accept_" . htmlspecialchars($row['report_id']) . "'>Accept</button>
+                                </form>
+                                <form action='' method='post'>
+                                    <button class='button decline' type='submit' name='decline_" . htmlspecialchars($row['report_id']) . "'>Decline</button>
+                                </form>
+                              </td>";
+                        echo "</tr>";
 
-                    if ($reportsResult->num_rows > 0) {
-                        while ($row = $reportsResult->fetch_assoc()) {
-                            echo "<tr>
-                                    <td>{$row['make']} {$row['model']}</td>
-                                    <td>{$row['report_id']}</td>
-                                    <td>{$row['content']}</td>
-                                    <td>{$row['report_date']}</td>
-                                    <td class='button-container'>
-                                        <form method='post' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>
-                                            <input type='hidden' name='action' value='accept'>
-                                            <input type='hidden' name='report_id' value='{$row['report_id']}'>
-                                            <button type='submit' class='button accept'>Accept</button>
-                                        </form>
-                                        <form method='post' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>
-                                            <input type='hidden' name='action' value='decline'>
-                                            <input type='hidden' name='report_id' value='{$row['report_id']}'>
-                                            <button type='submit' class='button decline'>Decline</button>
-                                        </form>
-                                    </td>
-                                  </tr>";
+                        
+                        if (isset($POST['accept' . $row['report_id']])) {
+                            echo "<script>alert('Report accepted, you have the admin permission');</script>";
+                        } elseif (isset($POST['decline' . $row['report_id']])) {
+                            echo "<script>alert('Cost declined');</script>";
                         }
-                    } else {
-                        echo "<tr><td colspan='5'>No reports found.</td></tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='5'>You do not have access to this section.</td></tr>";
+                    echo "<tr><td colspan='4'>No reports found for Car Managers.</td></tr>";
                 }
 
+                
                 $conn->close();
                 ?>
             </tbody>
         </table>
     </div>
-
-    <?php
-   
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
-        $action = $_POST['action'];
-        $reportId = $_POST['report_id'];
-
-        if ($action === "accept") {
-            echo "<script>alert('Report ID $reportId accepted.');</script>";
-        } elseif ($action === "decline") {
-            echo "<script>alert('Report ID $reportId declined.');</script>";
-        }
-    }
-    ?>
 </body>
 </html>
