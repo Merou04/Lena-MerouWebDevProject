@@ -4,15 +4,15 @@ session_start();
 $host = "localhost";
 $dbuser = "root";
 $dbpass = "";
-$dbname = "CarTrack";
+$dbname = "cartrack_db"; // Updated to the new database name
 $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Fetch all drivers from the database
-$query = "SELECT name, birthday, license_number, status FROM Drivers ORDER BY name";
+// Fetch all drivers from the database using the updated table structure
+$query = "SELECT driver_id, name, birth_date, license_type, status, Description FROM drivers ORDER BY name";
 $result = mysqli_query($conn, $query);
 if (!$result) {
     die("Error fetching drivers: " . mysqli_error($conn));
@@ -37,6 +37,20 @@ if (!$result) {
             font-size: 24px;
             color: #172b4d;
             margin-bottom: 20px;
+        }
+        .logout {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            padding: 5px 10px;
+            background-color: #ffdb58;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        .logout:hover {
+            background-color: #ccab42;
         }
         table {
             width: 100%;
@@ -79,13 +93,15 @@ if (!$result) {
 </head>
 <body>
     <h2 class="title">Driver Management</h2>
+    <a href="welcome.php" class="logout">Disconnect</a>
     <table id="driversTable">
         <thead>
             <tr>
                 <th>Driver's Name</th>
                 <th>Date of Birth</th>
-                <th>License Number</th>
+                <th>License Type</th>
                 <th>Status</th>
+                <th>Description</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -93,18 +109,18 @@ if (!$result) {
             <?php while ($row = mysqli_fetch_assoc($result)): ?>
             <tr>
                 <td><?php echo htmlspecialchars($row['name']); ?></td>
-                <td><?php echo htmlspecialchars($row['birthday']); ?></td>
-                <td><?php echo htmlspecialchars($row['license_number']); ?></td>
+                <td><?php echo htmlspecialchars($row['birth_date']); ?></td>
+                <td><?php echo htmlspecialchars($row['license_type']); ?></td>
                 <td><?php echo htmlspecialchars($row['status']); ?></td>
+                <td><?php echo htmlspecialchars($row['Description']); ?></td>
                 <td>
-                    <button>Delete</button>
                     <button>Update</button>
                 </td>
             </tr>
             <?php endwhile; ?>
         </tbody>
     </table>
-    <a href="CreateAcc.php" class="button">Add New Driver</a> 
+    <a href="CreateAcc.php" class="button">Add New Driver</a>
 </body>
 </html>
 
