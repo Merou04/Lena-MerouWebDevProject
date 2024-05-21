@@ -56,30 +56,9 @@
             display: inline-block; 
             margin-right: 20px; 
         }
-        .top-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 20px;
-        }
-        .top-button {
-            padding: 8px 16px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: white;
-            background-color: #4CAF50;
-        }
-        button.show-info, a.show-info {
-            background-color: #ffdb58; 
-            color: black; 
-        }
         button.add-vehicle, a.add-vehicle {
             background-color: #4CAF50; 
             color: white; 
-        }
-        button.make-available, button.put-out-of-service {
-            background-color: #4CAF50; 
-            color: white; 
-            margin-right: 20px; 
         }
         .big-button {
             padding: 12px 24px;
@@ -88,10 +67,6 @@
     </style>
 </head>
 <body>
-    <div class="top-buttons">
-        <a href="admin.php" class="top-button">Return to Admin</a>
-        <a href="welcome.php" class="top-button">Disconnect</a>
-    </div>
     <div class="container">
         <h1>Car Manager</h1>
         <table>
@@ -117,22 +92,19 @@
                     die("Connection failed: " . $conn->connect_error);
                 }
 
-                $sql = "SELECT name, model, year, license_plate, status FROM vehicles";
+                $sql = "SELECT vehicle_id, name, model, year, license_plate, status FROM vehicles";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
-                    // output data of each row
-                    while($row = $result->fetch_assoc()) {
+                    while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
-                        echo "<td>" . $row["name"] . "</td>";
-                        echo "<td>" . $row["model"] . "</td>";
-                        echo "<td>" . $row["year"] . "</td>";
-                        echo "<td>" . $row["license_plate"] . "</td>";
-                        echo "<td>" . $row["status"] . "</td>";
+                        echo "<td>" . htmlspecialchars($row["name"]) . "</td>";
+                        echo "<td>" . htmlspecialchars($row["model"]) . "</td>";
+                        echo "<td>" . htmlspecialchars($row["year"]) . "</td>";
+                        echo "<td>" . htmlspecialchars($row["license_plate"]) . "</td>";
+                        echo "<td>" . htmlspecialchars($row["status"]) . "</td>";
                         echo '<td class="btn-container">
-                                <button class="make-available">Make Available</button>
-                                <button class="put-out-of-service">Put Out of Service</button>
-                                <a href="carinfos.php" class="show-info">Show Info</a>
+                                <a href="carinfos.php?id=' . $row['vehicle_id'] . '" class="show-info">Show Info</a>
                               </td>';
                         echo "</tr>";
                     }
