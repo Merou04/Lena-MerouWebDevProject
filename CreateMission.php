@@ -49,6 +49,37 @@
         border-radius: 5px;
         box-sizing: border-box;
     }
+    .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .logout-button:hover {
+            background-color: #cc0000;
+        }
+        .back-button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: #0000FF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .back-button:hover {
+            background-color: #0000cc;
+        }
+
 </style>
 
 <?php
@@ -65,6 +96,8 @@
     <title>Mission</title>
     </head>
     <body>
+    <a href="Welcome.php" class="logout-button">Se déconnecter</a>
+
         <div class="block">
         <h1>Create a mission:</h1>
         
@@ -96,6 +129,7 @@
         <br><br>
         <a href="acceuilSA.php" class="button">Cancel</a>
         </div>
+        <a href="acceuilSA.php" class="back-button">Back</a>
     </body>
 </html>
 
