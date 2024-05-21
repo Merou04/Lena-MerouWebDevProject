@@ -31,7 +31,7 @@ session_start();
  $host = "localhost";
  $dbuser = "root";
  $dbpass = "";
- $dbname = "cartrack";
+ $dbname = "cartrack_db";
  $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
  
  // fonction display toutes les missions
