@@ -20,6 +20,22 @@
         border-radius: 5px;
         width: 100%;
     }
+    .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .logout-button:hover {
+            background-color: #cc0000;
+        }
+
  </style>
 
 <html>
@@ -28,6 +44,7 @@
     </head>
     <body>
         <div class="block" >
+        <a href="Welcome.php" class="logout-button">Se déconnecter</a>
             <div style="text-align :center;">
             <h1>Hello admin, what would you like to do?</h1>
             <a href="manag.php" class="button">Manage mission</a>
