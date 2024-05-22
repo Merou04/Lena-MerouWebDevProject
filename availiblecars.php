@@ -3,7 +3,7 @@ session_start();
 
  $host = "localhost";
  $dbuser = "root";
- $dbpass = "";
+ $dbpass = "Raouf120304";
  $dbname = "cartrack_db";
  $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
 
@@ -102,7 +102,7 @@ session_start();
     </style>
 </head>
 <body>
-<a href="Welcome.php" class="logout-button">Se déconnecter</a>
+<a href="Index.php" class="logout-button">Se déconnecter</a>
 <div class="container">
     <h1>List of Available Vehicles</h1>
     <table>
