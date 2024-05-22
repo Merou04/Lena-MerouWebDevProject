@@ -15,6 +15,7 @@
             height: 100vh;
             background: linear-gradient(45deg, #172b4d, #2c3e50);
             color: #fff;
+            position: relative;
         }
 
         .report-container {
@@ -77,9 +78,44 @@
         h2 {
             color: #333;
         }
+
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logout-button:hover {
+            background-color: #cc0000;
+        }
+
+        .back-button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: #0000FF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #0000cc;
+        }
     </style>
 </head>
 <body>
+    <a href="Index.php" class="logout-button">Se déconnecter</a>
     <div class="report-container">
         <h2>Vehicle Manager Reports</h2>
         <table>
@@ -88,6 +124,7 @@
                     <th>Car Name</th>
                     <th>Car Number</th>
                     <th>Report</th>
+                    <th>Decision</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -98,15 +135,26 @@
                 $password = "Raouf120304";
                 $dbname = "cartrack_db";
 
-                
                 $conn = new mysqli($servername, $username, $password, $dbname);
 
-                
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 }
 
-                
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    $report_id = key($_POST);
+                    $decision = $_POST[$report_id] == 'accept' ? 'accepté' : 'décliné';
+
+                    $stmt = $conn->prepare("UPDATE reports SET decision = ? WHERE report_id = ?");
+                    $stmt->bind_param("si", $decision, $report_id);
+                    $stmt->execute();
+                    $stmt->close();
+
+                    // Refresh the page to show updated data
+                    header('Location: ' . $_SERVER['PHP_SELF']);
+                    exit();
+                }
+
                 $sql = "SELECT r.*, v.name AS vehicle_name, v.license_plate AS vehicle_number
                         FROM reports r
                         JOIN users u ON r.user_id = u.user_id
@@ -120,32 +168,28 @@
                         echo "<td>" . htmlspecialchars($row['vehicle_name']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['vehicle_number']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['content']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['decision']) . "</td>";
                         echo "<td class='button-container'>
                                 <form action='' method='post'>
-                                    <button class='button accept' type='submit' name='accept_" . htmlspecialchars($row['report_id']) . "'>Accept</button>
+                                    <input type='hidden' name='" . htmlspecialchars($row['report_id']) . "' value='accept'>
+                                    <button class='button accept' type='submit'>Accept</button>
                                 </form>
                                 <form action='' method='post'>
-                                    <button class='button decline' type='submit' name='decline_" . htmlspecialchars($row['report_id']) . "'>Decline</button>
+                                    <input type='hidden' name='" . htmlspecialchars($row['report_id']) . "' value='decline'>
+                                    <button class='button decline' type='submit'>Decline</button>
                                 </form>
                               </td>";
                         echo "</tr>";
-
-                        
-                        if (isset($POST['accept' . $row['report_id']])) {
-                            echo "<script>alert('Report accepted, you have the admin permission');</script>";
-                        } elseif (isset($POST['decline' . $row['report_id']])) {
-                            echo "<script>alert('Cost declined');</script>";
-                        }
                     }
                 } else {
-                    echo "<tr><td colspan='4'>No reports found for Car Managers.</td></tr>";
+                    echo "<tr><td colspan='5'>No reports found for Car Managers.</td></tr>";
                 }
 
-                
                 $conn->close();
                 ?>
             </tbody>
         </table>
     </div>
+    <a href="viewreports.php" class="back-button">Back</a>
 </body>
 </html>
