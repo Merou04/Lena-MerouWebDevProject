@@ -13,8 +13,9 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(45deg, #172b4d, #2c3e50); 
-            color: #fff; 
+            background: linear-gradient(45deg, #172b4d, #2c3e50);
+            color: #fff;
+            position: relative;
         }
 
         .container {
@@ -28,7 +29,7 @@
         }
 
         h1 {
-            color: #333; 
+            color: #333;
             margin-bottom: 20px;
         }
 
@@ -47,64 +48,86 @@
             box-sizing: border-box;
         }
 
-        button[type="submit"] {
-            background-color: #4CAF50; 
-            color: #fff; 
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 10px;
-            text-decoration: none; 
-        }
-
-        a {
-            background-color: #FF0000; 
+        button[type="submit"], .back-button {
             color: #fff;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            text-decoration: none; 
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
         }
 
         button[type="submit"]:hover {
-            background-color: #45a049; 
+            background-color: #45a049;
+        }
+
+        a {
+            background-color: #FF0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
         }
 
         a:hover {
-            background-color: #cc0000; 
+            background-color: #cc0000;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logout-button:hover {
+            background-color: #cc0000;
+        }
+
+        .back-button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: #0000FF;
+        }
+
+        .back-button:hover {
+            background-color: #0000cc;
         }
     </style>
 </head>
 <body>
     <?php
-     session_start();
+    session_start();
 
-    
-     if (!isset($_SESSION['user_id'])) {
-         header("Location: login.php");
-         exit();
-     }
- 
-    
-     $host = "localhost";
-     $dbuser = "root";
-     $dbpass = "Raouf120304";
-     $dbname = "cartrack_db";
-     $conn = new mysqli($host, $dbuser, $dbpass, $dbname);
- 
- 
-     if ($conn->connect_error) {
-         die("Connection failed: " . $conn->connect_error);
-     }
-    
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: login.php");
+        exit();
+    }
+
+    $host = "localhost";
+    $dbuser = "root";
+    $dbpass = "Raouf120304";
+    $dbname = "cartrack_db";
+    $conn = new mysqli($host, $dbuser, $dbpass, $dbname);
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    
     $mission_id = 10301;
     $sql = "SELECT * FROM missions WHERE mission_id = $mission_id";
     $result = $conn->query($sql);
@@ -115,10 +138,8 @@
         echo "No mission found";
         exit;
     }
-
+    ?>  
    
-    $conn->close();
-    ?>
     <div class="container">
         <h1>Mission Information</h1>
         <form>
@@ -144,5 +165,12 @@
             <a href="InterfaceSig.php">✗ Reject</a>
         </form>
     </div>
+
+    <a href="Index.php" class="logout-button">Se déconnecter</a>
+    <a href="InterfaceCH.php" class="back-button">Back</a>
 </body>
 </html>
+
+<?php
+$conn->close();
+?>
