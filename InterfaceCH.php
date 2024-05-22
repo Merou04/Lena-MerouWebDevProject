@@ -13,8 +13,9 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(45deg, #172b4d, #2c3e50); 
+            background: linear-gradient(45deg, #172b4d, #2c3e50);
             color: #fff;
+            position: relative;
         }
         .container {
             display: flex;
@@ -40,7 +41,7 @@
             margin-bottom: 10px;
             color: #555;
         }
-        .profile-info a.button {
+        .profile-info a.button, .profile-info form button {
             background-color: #ffdb58;
             color: #333;
             padding: 10px 20px;
@@ -52,7 +53,7 @@
             margin-top: 20px;
             text-decoration: none;
         }
-        .profile-info a.button:hover {
+        .profile-info a.button:hover, .profile-info form button:hover {
             background-color: #ccab42;
         }
         .profile-image {
@@ -63,60 +64,113 @@
             width: 300px;
             height: 300px;
             border-radius: 10px;
+            object-fit: cover;
+        }
+        .no-mission {
+            color: #ff0000;
+            margin-top: 20px;
+        }
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .logout-button:hover {
+            background-color: #cc0000;
+        }
+        .back-button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: #0000FF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .back-button:hover {
+            background-color: #0000cc;
         }
     </style>
 </head>
 <body>
-    <?php
-    session_start();
-
-    
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: login.php");
-        exit();
-    }
-
-   
-    $host = "localhost";
-    $dbuser = "root";
-    $dbpass = "Raouf120304";
-    $dbname = "cartrack_db";
-    $conn = new mysqli($host, $dbuser, $dbpass, $dbname);
-
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-  
-    $user_id = $_SESSION['user_id'];
-
- 
-    $sql = "SELECT d.name, d.license_type, d.status, d.birth_date, d.Description 
-            FROM drivers d 
-            JOIN users u ON d.user_id = u.user_id 
-            WHERE u.user_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $stmt->bind_result($name, $license_type, $status, $birth_date, $description);
-    $stmt->fetch();
-    $stmt->close();
-    $conn->close();
-    ?>
+    <a href="Index.php" class="logout-button">Se déconnecter</a>
     <div class="container">
         <div class="profile-image">
-            <img src="path/to/your/image.jpg" alt="Driver's Photo"> 
+            <?php
+            session_start();
+
+            if (!isset($_SESSION['user_id'])) {
+                header("Location: login.php");
+                exit();
+            }
+
+            $host = "localhost";
+            $dbuser = "root";
+            $dbpass = "Raouf120304";
+            $dbname = "cartrack_db";
+            $conn = new mysqli($host, $dbuser, $dbpass, $dbname);
+
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            $user_id = $_SESSION['user_id'];
+
+            $sql = "SELECT d.driver_id, d.name, d.license_type, d.status, d.birth_date, d.Description, d.Pic_Driver 
+                    FROM drivers d 
+                    JOIN users u ON d.user_id = u.user_id 
+                    WHERE u.user_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $stmt->bind_result($driver_id, $name, $license_type, $status, $birth_date, $description, $pic_driver);
+            $stmt->fetch();
+            $stmt->close();
+
+            // Vérification de l'existence de missions pour ce driver_id
+            $sql = "SELECT COUNT(*) FROM `mission-assignment` WHERE driver_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $driver_id);
+            $stmt->execute();
+            $stmt->bind_result($mission_count);
+            $stmt->fetch();
+            $stmt->close();
+            $conn->close();
+
+            $has_mission = ($mission_count > 0);
+
+            if ($pic_driver) {
+                echo '<img src="data:image/jpeg;base64,' . base64_encode($pic_driver) . '" alt="Driver\'s Photo">';
+            } else {
+                echo '<img src="path/to/default/image.jpg" alt="Default Photo">';
+            }
+            ?>
         </div>
         <div class="profile-info">
-            //pour afficher sur l'interface a partir de la bdd
             <h2>Driver's Name: <?php echo htmlspecialchars($name); ?></h2>
             <p>Date of Birth: <?php echo htmlspecialchars($birth_date); ?></p>
             <p>License Type: <?php echo htmlspecialchars($license_type); ?></p>
             <p>Status: <?php echo htmlspecialchars($status); ?></p>
             <p>Description: <?php echo htmlspecialchars($description); ?></p>
-            <a href="InterfaceMS.php" class="button">View Mission</a>
+            <?php if ($has_mission): ?>
+                <form method="GET" action="InterfaceMS.php">
+                    <button type="submit" class="button">View Mission</button>
+                </form>
+            <?php else: ?>
+                <p class="no-mission">No current mission</p>
+            <?php endif; ?>
         </div>
     </div>
+    <a href="login.php" class="back-button">Back</a>
 </body>
 </html>
