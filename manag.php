@@ -55,12 +55,12 @@
 <html>
     <head><title>Choice</title></head>
     <body>
-    <a href="Welcome.php" class="logout-button">Se déconnecter</a>
+    <a href="Index.php" class="logout-button">Se déconnecter</a>
         <div class="block">
             <div style="text-align :center;">
             <h2>Do you want to create or consult a mission?</h2>
             <a href="CreateMission.php" class="button">Create</a>
-            <a href="consultation.php" class="button">Consult</a>
+            <a href="connsultation.php" class="button">Consult</a>
             <br><br>
         </div>
         <a href="acceuilSA.php" class="back-button">Back</a>
