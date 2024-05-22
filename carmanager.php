@@ -152,7 +152,7 @@
         </table>
         <div class="btn-container">
             <a href="new car.php" class="big-button add-vehicle">Add Vehicle</a>
-            <a href="InterfaceSig.php" class="big-button view-reports">View Reports</a>
+            <a href="InterfaceSig.php" class="big-button view-reports">Send Reports</a>
         </div>
     </div>
     <a href="login.php" class="back-link">Back</a>
