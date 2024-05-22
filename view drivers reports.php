@@ -1,3 +1,49 @@
+<?php
+session_start();
+
+$host = "localhost";
+$dbuser = "root";
+$dbpass = "Raouf120304";
+$dbname = "cartrack_db";
+$conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+$message = ''; 
+
+if (isset($_POST['action'])) {
+    $action = $_POST['action'];
+    $report_id = $_POST['report_id'];
+    $decision = $action === 'accept' ? 'accepté' : 'decliné';
+
+
+    $stmt = $conn->prepare("UPDATE reports SET decision = ? WHERE report_id = ?");
+    $stmt->bind_param("si", $decision, $report_id);
+    if ($stmt->execute()) {
+        $message = "Report $report_id has been " . ($action === 'accept' ? 'accepted' : 'declined') . ".";
+    } else {
+        $message = "Error updating report $report_id.";
+    }
+    $stmt->close();
+
+
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+$sql = "SELECT r.*, u.username AS driver_name, m.mission_id AS mission_number
+        FROM reports r
+        JOIN users u ON r.user_id = u.user_id
+        JOIN missions m ON r.mission_id = m.mission_id
+        WHERE u.role = 'Driver'";
+$result = $conn->query($sql);
+
+$message = isset($_SESSION['message']) ? $_SESSION['message'] : '';
+unset($_SESSION['message']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +61,7 @@
             height: 100vh;
             background: linear-gradient(45deg, #172b4d, #2c3e50);
             color: #fff;
+            position: relative;
         }
 
         .report-container {
@@ -77,49 +124,68 @@
         h2 {
             color: #333;
         }
+
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logout-button:hover {
+            background-color: #cc0000;
+        }
+
+        .back-button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: #0000FF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #0000cc;
+        }
     </style>
 </head>
 <body>
+    <a href="Index.php" class="logout-button">Se déconnecter</a>
     <div class="report-container">
         <h2>Driver Reports Management</h2>
+        <?php if ($message): ?>
+            <p><?php echo $message; ?></p>
+        <?php endif; ?>
         <table>
             <thead>
                 <tr>
                     <th>Driver Name</th>
                     <th>Mission Number</th>
                     <th>Report</th>
+                    <th>Decision</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $servername = "localhost";
-                $username = "root";
-                $password = "Raouf120304";
-                $dbname = "cartrack_db";
-
-                
-                $conn = new mysqli($servername, $username, $password, $dbname);
-
-                
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
-
-                
-                $sql = "SELECT r.*, u.username AS driver_name, m.mission_id AS mission_number
-                        FROM reports r
-                        JOIN users u ON r.user_id = u.user_id
-                        JOIN missions m ON r.mission_id = m.mission_id
-                        WHERE u.role = 'Driver'";
-                $result = $conn->query($sql);
-
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td>" . htmlspecialchars($row['driver_name']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['mission_number']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['content']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['decision']) . "</td>";
                         echo "<td class='button-container'>
                                 <form action='' method='post'>
                                     <input type='hidden' name='report_id' value='" . htmlspecialchars($row['report_id']) . "'>
@@ -133,26 +199,13 @@
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='4'>No reports found for Drivers.</td></tr>";
+                    echo "<tr><td colspan='5'>No reports found for Drivers.</td></tr>";
                 }
-
-                
-                $conn->close();
                 ?>
             </tbody>
         </table>
     </div>
 
-    <?php
-    if (isset($_POST['action'])) {
-        $action = $_POST['action'];
-        $report_id = $_POST['report_id'];
-        if ($action === "accept") {
-            echo "<script>alert('Report $report_id accepted, stop mission, return back');</script>";
-        } elseif ($action === "decline") {
-            echo "<script>alert('Report $report_id declined, carry on mission');</script>";
-        }
-    }
-    ?>
+    <a href="viewreports.php" class="back-button">Back</a>
 </body>
 </html>
