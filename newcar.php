@@ -10,6 +10,8 @@
             margin: 0;
             padding: 20px;
             background-color: #172b4d;
+            position: relative;
+            min-height: 100vh;
         }
         .container {
             max-width: 600px;
@@ -49,17 +51,40 @@
         button:hover {
             background-color: #45a049;
         }
-        .top-right {
+        .logout-button {
             position: absolute;
             top: 20px;
             right: 20px;
+            background-color: #FF0000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .logout-button:hover {
+            background-color: #cc0000;
+        }
+        .back-button {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background-color: #0000FF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .back-button:hover {
+            background-color: #0000cc;
         }
     </style>
 </head>
 <body>
-    <div class="top-right">
-        <button onclick="window.location.href='welcome.php';">Disconnect</button>
-    </div>
+    <a href="Index.php" class="logout-button">Se déconnecter</a>
     <div class="container">
         <h1>Add Vehicle</h1>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
@@ -84,14 +109,13 @@
                 <input type="text" id="status" name="status" required>
             </div>
             <button type="submit" name="submit">Confirm</button>
-            <button type="button" onclick="window.location.href='carmanager.php';">Cancel</button>
         </form>
 
         <?php
         if (isset($_POST['submit'])) {
             $host = "localhost";
             $dbuser = "root";
-            $dbpass = "";
+            $dbpass = "Raouf120304";
             $dbname = "cartrack_db";
             $conn = new mysqli($host, $dbuser, $dbpass, $dbname);
 
@@ -109,7 +133,7 @@
             $stmt->bind_param("ssiss", $name, $model, $year, $license_plate, $status);
 
             if ($stmt->execute()) {
-                echo "<script>alert('Vehicle added successfully'); window.location.href='carmanager.php';</script>";
+                echo "<script>alert('Vehicle added successfully'); window.location.href='car manager.php';</script>";
             } else {
                 echo "<script>alert('Error: " . $stmt->error . "');</script>";
             }
@@ -119,5 +143,6 @@
         }
         ?>
     </div>
+    <a href="car manager.php" class="back-button">Back</a>
 </body>
 </html>
