@@ -1,47 +1,3 @@
-
-<?php
-           
-            $host = "localhost";
-            $dbuser = "root";
-            $dbpass = "";
-            $dbname = "CarTrack";
-            $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
-
-           
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
-            }
-
-            // pour recuper les données de la bas de données
-            $sql = "SELECT * FROM reports";
-            $result = mysqli_query($conn, $sql);
-
-            if (mysqli_num_rows($result) > 0) {
-                
-                echo "<h3>Recent Reports</h3>";
-                echo "<table border='1'>";
-                echo "<tr><th>Subject</th><th>Message</th></tr>";
-                while($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr><td>" . $row["subject"] . "</td><td>" . $row["message"] . "</td></tr>";
-                }
-                echo "</table>";
-            } else {
-                echo "No reports found";
-            }
-
-            mysqli_close($conn);
-        ?>
-/* <?php
-session_start();
-
- $host = "localhost";
- $dbuser = "root";
- $dbpass = "";
- $dbname = "CarTrack";
- $conn = mysqli_connect($host, $dbuser, $dbpass, $dbname);
-
- ?>*/
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,6 +15,7 @@ session_start();
             height: 100vh;
             background: linear-gradient(45deg, #172b4d, #2c3e50); 
             color: #fff; 
+            position: relative;
         }
 
         .report-container {
@@ -92,17 +49,49 @@ session_start();
         button:hover {
             background-color: #ccab42;
         }
+
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logout-button:hover {
+            background-color: #cc0000;
+        }
+
+        .back-button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: #0000FF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #0000cc;
+        }
     </style>
 </head>
 <body>
+    <a href="Index.php" class="logout-button">Se déconnecter</a>
     <div class="report-container">
         <h2>Report Management</h2>
         <button onclick="window.location.href = 'view drivers reports.php';">Driver Reports</button> 
         <button onclick="window.location.href = 'vehiculemanagerreports.php';">Vehicle Manager Reports</button>
     </div>
+    <a href="acceuilSA.php" class="back-button">Back</a>
 </body>
 </html>
-
-<?php
-    mysqli_close($conn);
-?>
