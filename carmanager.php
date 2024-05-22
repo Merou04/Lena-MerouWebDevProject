@@ -18,6 +18,7 @@
             background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
         h1 {
             text-align: center;
@@ -56,7 +57,7 @@
             display: inline-block; 
             margin-right: 20px; 
         }
-        button.add-vehicle, a.add-vehicle {
+        button.add-vehicle, a.add-vehicle, a.view-reports {
             background-color: #4CAF50; 
             color: white; 
         }
@@ -64,9 +65,42 @@
             padding: 12px 24px;
             font-size: 18px;
         }
+        .logout-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #FF0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .logout-link:hover {
+            background-color: #cc0000;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #0000FF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
+        .back-link:hover {
+            background-color: #0000cc;
+        }
     </style>
 </head>
 <body>
+    <a href="Index.php" class="logout-link">Se déconnecter</a>
     <div class="container">
         <h1>Car Manager</h1>
         <table>
@@ -84,7 +118,7 @@
                 <?php
                 $host = "localhost";
                 $dbuser = "root";
-                $dbpass = "";
+                $dbpass = "Raouf120304";
                 $dbname = "cartrack_db";
                 $conn = new mysqli($host, $dbuser, $dbpass, $dbname);
 
@@ -102,9 +136,10 @@
                         echo "<td>" . htmlspecialchars($row["model"]) . "</td>";
                         echo "<td>" . htmlspecialchars($row["year"]) . "</td>";
                         echo "<td>" . htmlspecialchars($row["license_plate"]) . "</td>";
-                        echo "<td>" . htmlspecialchars($row["status"]) . "</td>";
+                        $currentStatus = htmlspecialchars($row["status"]);
+                        echo "<td>" . $currentStatus . "</td>";
                         echo '<td class="btn-container">
-                                <a href="carinfos.php?id=' . $row['vehicle_id'] . '" class="show-info">Show Info</a>
+                                <a href="car infos.php?id=' . $row['vehicle_id'] . '" class="show-info">Show Info</a>
                               </td>';
                         echo "</tr>";
                     }
@@ -116,8 +151,10 @@
             </tbody>
         </table>
         <div class="btn-container">
-            <a href="newcar.php" class="big-button add-vehicle">Add Vehicle</a>
+            <a href="new car.php" class="big-button add-vehicle">Add Vehicle</a>
+            <a href="InterfaceSig.php" class="big-button view-reports">View Reports</a>
         </div>
     </div>
+    <a href="login.php" class="back-link">Back</a>
 </body>
 </html>
