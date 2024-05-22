@@ -58,16 +58,49 @@
             padding: 8px;
             box-sizing: border-box;
         }
+        .top-right-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #FF0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .top-right-btn:hover {
+            background-color: #cc0000;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #0000FF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
+        .back-link:hover {
+            background-color: #0000cc;
+        }
     </style>
 </head>
 <body>
+    <a href="Index.php" class="top-right-btn">Se deconnecter </a>
     <div class="container">
         <h1>Vehicle Information</h1>
         <?php
         $vehicle_id = $_GET['id'] ?? null;
         $host = "localhost";
         $dbuser = "root";
-        $dbpass = "";
+        $dbpass = "Raouf120304";
         $dbname = "cartrack_db";
         $conn = new mysqli($host, $dbuser, $dbpass, $dbname);
         if ($conn->connect_error) {
@@ -84,7 +117,7 @@
             $stmt->bind_param("ssissi", $name, $model, $year, $license_plate, $status, $vehicle_id);
             $stmt->execute();
             $stmt->close();
-            header('Location: carmanager.php'); // Redirect to the vehicle management page
+            header('Location: car manager.php'); 
             exit();
         } else {
             if ($vehicle_id) {
@@ -115,5 +148,6 @@
         $conn->close();
         ?>
     </div>
+    <a href="javascript:history.back()" class="back-link">Back</a>
 </body>
 </html>
